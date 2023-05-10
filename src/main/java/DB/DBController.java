@@ -59,7 +59,7 @@ public class DBController {
             ResultSet rs = stmt.getResultSet();
 
             if (rs.next()) {
-                registration = rs.getString("checkIn");
+                registration = rs.getString("checkOut");
             }
 
             stmt.close();

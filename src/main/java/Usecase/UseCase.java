@@ -6,16 +6,19 @@ public class UseCase {
 
     DBController db = new DBController();
 
-    public User dbUser = new User();
+    public User user = new User();
 
 
     public boolean checkInConfirm(String fName, String lName, String password) {
 
-        dbUser = db.getUser(fName,lName,password);
+        user = db.getUser(fName,lName,password);
 
-        if (fName.equals(dbUser.getfName()) && lName.equals(dbUser.getlName()) && password.equals(dbUser.getPassword() )) {
-            dbUser.setStatus(true);
+        if (fName.equals(user.getfName()) && lName.equals(user.getlName()) && password.equals(user.getPassword() )) {
+            user.setStatus(true);
 
+            if(user.isStatus() == false ){
+              //  db.registerCheckIn(user.getId());
+            }
             //db.registerTime(hentetUser);
 
             return true;
@@ -23,4 +26,12 @@ public class UseCase {
             return false;
         }
     }
-}
+
+        public void checkOutConfirm() {
+            user.setStatus(false);
+            //noget andet skal ske her
+        }
+
+
+    }
+
