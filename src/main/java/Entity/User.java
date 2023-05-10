@@ -9,6 +9,8 @@ public class User {
     private int company;
     private boolean status;
 
+    private String location;
+
     public User() {
     }
 
@@ -66,6 +68,14 @@ public class User {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
 

@@ -7,8 +7,7 @@ public class Registration {
     private String checkInTime;
     private String checkOutTime;
 
-    public Registration(int regId) {
-        this.regId = regId;
+    public Registration() {
     }
     public Registration(int userId, String checkInTime, String checkOutTime) {
         this.userId = userId;
