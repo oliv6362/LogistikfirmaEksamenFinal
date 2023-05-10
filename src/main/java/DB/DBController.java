@@ -21,6 +21,56 @@ public class DBController {
         }
     }
 
+    public String registerCheckIn(int userID, String checkIn) {
+        String registration = "";
+        try {
+
+            String sql = "UPDATE Registration SET checkIn = '" + checkIn + "'" + "WHERE userID = '" + userID + "'" ;
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+
+            sql = "SELECT checkIn FROM Registration WHERE userID = '" + userID + "'";
+            stmt.execute(sql);
+
+            ResultSet rs = stmt.getResultSet();
+
+            if (rs.next()) {
+                registration = rs.getString("checkIn");
+            }
+
+            stmt.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return registration;
+    }
+
+    public String registerCheckOut(int userID, String checkOut) {
+        String registration = "";
+        try {
+
+            String sql = "UPDATE Registration SET checkOut = '" + checkOut + "'" + "WHERE userID = '" + userID + "'" ;
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+
+            sql = "SELECT checkOut FROM Registration WHERE userID = '" + userID + "'";
+            stmt.execute(sql);
+
+            ResultSet rs = stmt.getResultSet();
+
+            if (rs.next()) {
+                registration = rs.getString("checkIn");
+            }
+
+            stmt.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return registration;
+    }
+
+
+
     public User getUser(String fName, String lName, String password) {
         try {
             User user = new User();
