@@ -3,6 +3,8 @@ package DB;
 import Entity.User;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class DBController {
 
@@ -25,7 +27,7 @@ public class DBController {
         String registration = "";
         try {
 
-            String sql = "UPDATE Registration SET checkIn = '" + checkIn + "'" + "WHERE userID = '" + userID + "'" ;
+            String sql = "UPDATE Registration SET checkIn = '" + checkIn + "'" + "WHERE userID = '" + userID + "'";
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
 
@@ -49,7 +51,7 @@ public class DBController {
         String registration = "";
         try {
 
-            String sql = "UPDATE Registration SET checkOut = '" + checkOut + "'" + "WHERE userID = '" + userID + "'" ;
+            String sql = "UPDATE Registration SET checkOut = '" + checkOut + "'" + "WHERE userID = '" + userID + "'";
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
 
@@ -68,7 +70,6 @@ public class DBController {
         }
         return registration;
     }
-
 
 
     public User getUser(String fName, String lName, String password) {
@@ -95,6 +96,7 @@ public class DBController {
             throw new RuntimeException(e);
         }
     }
+
 
 
 
