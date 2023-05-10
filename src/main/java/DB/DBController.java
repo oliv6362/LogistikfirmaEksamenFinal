@@ -21,11 +21,11 @@ public class DBController {
         }
     }
 
-    public User getUser(int Id, fName, lName, password) {
+    public User getUser(String fName, String lName, String password) {
         try {
             User user = new User();
 
-            String sql = "SELECT * FROM User WHERE userID = " + Id + ";";
+            String sql = "SELECT * FROM User WHERE fName = " + fName + " AND lName = " + lName + " AND password = " + password + ";";
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
 

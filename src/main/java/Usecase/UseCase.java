@@ -13,14 +13,12 @@ public class UseCase {
 
         dbUser = db.getUser(fName,lName,password);
 
-        if (email.equals(dbUser.getEmail()) && password.equals(dbUser.getPassword() )) {
-            dbUser.setLogin(true);
+        if (fName.equals(dbUser.getfName()) && lName.equals(dbUser.getlName()) && password.equals(dbUser.getPassword() )) {
+            dbUser.setStatus(true);
 
             //db.registerTime(hentetUser);
 
-
             return true;
-
         } else {
             return false;
         }
