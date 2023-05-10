@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+    form {border: 3px solid #000000;}
+
+    input[type=text], input[type=password] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #cceefd;
+      color: #000000;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .cancelbtn {
+      width: auto;
+      padding: 10px 18px;
+      background-color: #f44336;
+    }
+
+    .imgcontainer {
+      text-align: center;
+      margin: 24px 0 12px 0;
+    }
+
+    img.avatar {
+      width: 40%;
+      border-radius: 50%;
+    }
+
+    .container {
+      padding: 16px;
+    }
+
+    span.psw {
+      float: right;
+      padding-top: 16px;
+    }
+
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+      span.psw {
+        display: block;
+        float: none;
+      }
+      .cancelbtn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="grid-container">
+  <header class="header">
+    <h1><img class="headerIcon"  src="katfinalfinal.png">Intec</h1></header>
+
+  <main class="middle">
+
+    <h2>Login Form</h2>
+
+    <form method="post" action="/test">
+      <div class="container">
+        <label><b>Fornavn</b></label>
+        <input type="text" placeholder="Enter fornavn" name="fName" required>
+
+        <label><b>Efternavn</b></label>
+        <input type="text" placeholder="Enter efternavn" name="lName" required>
+
+        <label><b>Password</b></label>
+        <input type="password" placeholder="Enter password" name="password" required>
+
+        <button type="submit">Check Ind</button>
+        <button type="submit">Check Ud</button>
+        <input type="submit" value="Save" name="save" />
+        <input type="submit" value="back" name="back" />
+      </div>
+    </form>
+
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2023 Ragdoll Klubben</p>
+  </footer>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-package com.example.LogistikfirmaEksamenFinal;
+package UI;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
