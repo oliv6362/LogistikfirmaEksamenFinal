@@ -4,23 +4,25 @@ public class Registration {
 
     private int regID;
     private int userID;
-    private String checkInTime;
-    private String checkOutTime;
-
+    private String checkTime;
     public Registration() {
     }
 
-    public Registration(int regID, int userID, String checkInTime, String checkOutTime) {
+    //checkin
+    public Registration(int userID, String checkTime) {
+        this.userID = userID;
+        this.checkTime = checkTime;
+    }
+
+    public Registration(int regID, int userID, String checkTime, String checkOutTime) {
         this.regID = regID;
         this.userID = userID;
-        this.checkInTime = checkInTime;
-        this.checkOutTime = checkOutTime;
+        this.checkTime = checkTime;
     }
 
     public int getRegID() {
         return regID;
     }
-
     public void setRegID(int regID) {
         this.regID = regID;
     }
@@ -28,24 +30,14 @@ public class Registration {
     public int getUserID() {
         return userID;
     }
-
     public void setUserID(int userID) {
         this.userID = userID;
     }
 
-    public String getCheckInTime() {
-        return checkInTime;
+    public String getCheckTime() {
+        return checkTime;
     }
-
-    public void setCheckInTime(String checkInTime) {
-        this.checkInTime = checkInTime;
-    }
-
-    public String getCheckOutTime() {
-        return checkOutTime;
-    }
-
-    public void setCheckOutTime(String checkOutTime) {
-        this.checkOutTime = checkOutTime;
+    public void setCheckTime(String checkTime) {
+        this.checkTime = checkTime;
     }
 }

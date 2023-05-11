@@ -35,11 +35,15 @@ public class UIController {
     public String checkIn(@RequestParam String fName, @RequestParam String lName, @RequestParam String password) { //HttpSession er et springboot objekt
         System.out.println("hello checkin");
 
-        if (!uc.checkInConfirm(fName, lName, password)) {
-            System.out.println("du er ikke logget ind");
+        if (uc.checkInConfirm(fName, lName, password)) {
+
+            System.out.println("du er nu checked ind");
+
+
             return "index";
         } else {
-            System.out.println("du er nu logget ind");
+
+            System.out.println("du er ikke checked ind");
 
             return "redirect:/";
         }
@@ -48,10 +52,15 @@ public class UIController {
     @RequestMapping( value="/", method=POST, params={"checkout"} )
     public String checkOut(@RequestParam String fName, @RequestParam String lName, @RequestParam String password) { //HttpSession er et springboot objekt
         System.out.println("hello checkout");
-        if (!uc.checkInConfirm(fName, lName, password)) {
-            return "index";
+        if (uc.checkOutConfirm(fName, lName, password)) {
 
+            System.out.println("du er nu checked ud");
+
+
+            return "index";
         } else {
+
+            System.out.println("Du er ikke checked ud");
 
             return "redirect:/";
         }

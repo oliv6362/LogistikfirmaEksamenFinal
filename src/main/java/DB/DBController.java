@@ -4,8 +4,6 @@ import Entity.Registration;
 import Entity.User;
 
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class DBController {
 
@@ -24,14 +22,18 @@ public class DBController {
         }
     }
 
-    public void registerCheckIn(Registration reg) {
+    public void registerCheckIn(Registration reg, User u) {
 
         try {
             String sql = "INSERT INTO Registration (userID, checkIn) VALUES('"
-                    + reg.getUserID() + "','" + reg.getCheckInTime() + "')";
+                    + reg.getUserID() + "','" + reg.getCheckTime() + "')";
 
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
+
+            sql = "UPDATE User SET status = '" + u.getStatus() + "'" + "WHERE userID = '" + reg.getUserID() + "'";
+            stmt.execute(sql);
+
 
             System.out.println("Connection to SQLite has been established. \n");
             stmt.close();
@@ -40,30 +42,23 @@ public class DBController {
         }
     }
 
-    public String registerCheckOut(int userID, String checkOut) {
-        String registration = "";
+    public void registerCheckOut(Registration reg, User u)  {
         try {
+            String sql = "UPDATE Registration SET checkOut = '" + reg.getCheckTime() + "'" + "WHERE userID = '" + reg.getUserID() + "' AND checkOut IS NULL;";
 
-            String sql = "UPDATE Registration SET checkOut = '" + checkOut + "'" + "WHERE userID = '" + userID + "'";
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
 
-            sql = "SELECT checkOut FROM Registration WHERE userID = '" + userID + "'";
+            sql = "UPDATE User SET status = '" + u.getStatus() + "'" + "WHERE userID = '" + reg.getUserID() + "'";
             stmt.execute(sql);
 
-            ResultSet rs = stmt.getResultSet();
 
-            if (rs.next()) {
-                registration = rs.getString("checkOut");
-            }
-
+            System.out.println("Connection to SQLite has been established. \n");
             stmt.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return registration;
     }
-
 
     public User getUser(String fName, String lName, String password) {
         try {
@@ -82,7 +77,7 @@ public class DBController {
                 user.setCompany(rs.getInt("company"));
                 user.setPassword(rs.getString("password"));
                 user.setLocation(rs.getInt("location"));
-                user.setStatus(rs.getBoolean("status"));
+                user.setStatus(rs.getInt("status"));
             }
             return user;
         } catch (SQLException e) {

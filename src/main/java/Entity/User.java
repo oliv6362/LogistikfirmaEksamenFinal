@@ -7,7 +7,7 @@ public class User {
     private String lName;
     private String password;
     private int company;
-    private boolean status;
+    private int status;
 
     private int location;
 
@@ -15,7 +15,14 @@ public class User {
     }
 
 
-    public User(int userID, String fName, String lName, String password, int company, boolean status, int location) {
+    //til at ændre status bool TEEST
+    public User(int status) {
+        this.status = status;
+    }
+
+
+
+    public User(int userID, String fName, String lName, String password, int company, int status, int location) {
         this.userID = userID;
         this.fName = fName;
         this.lName = lName;
@@ -28,7 +35,6 @@ public class User {
     public int getUserID() {
         return userID;
     }
-
     public void setUserID(int userID) {
         this.userID = userID;
     }
@@ -36,7 +42,6 @@ public class User {
     public String getfName() {
         return fName;
     }
-
     public void setfName(String fName) {
         this.fName = fName;
     }
@@ -44,7 +49,6 @@ public class User {
     public String getlName() {
         return lName;
     }
-
     public void setlName(String lName) {
         this.lName = lName;
     }
@@ -52,7 +56,6 @@ public class User {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -60,23 +63,21 @@ public class User {
     public int getCompany() {
         return company;
     }
-
     public void setCompany(int company) {
         this.company = company;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
     public int getLocation() {
         return location;
     }
-
     public void setLocation(int location) {
         this.location = location;
     }
