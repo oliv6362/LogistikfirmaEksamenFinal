@@ -26,45 +26,21 @@ public class UIController {
         return "index";
     }
 
-
-
-
-
-
-    @RequestMapping( value="/", method=POST, params={"checkin"} )
-    public String checkIn(@RequestParam String fName, @RequestParam String lName, @RequestParam String password) { //HttpSession er et springboot objekt
+    @PostMapping("/")
+    public String checkInAndOut(@RequestParam String fName, @RequestParam String lName, @RequestParam String password){
         System.out.println("hello checkin");
 
-        if (uc.checkInConfirm(fName, lName, password)) {
+        if (uc.checkInAndOutConfirm(fName, lName, password)) {
 
-            System.out.println("du er nu checked ind");
+        System.out.println("du er nu checked ind/ud");
 
 
-            return "index";
+        return "index";
         } else {
 
-            System.out.println("du er ikke checked ind");
+        System.out.println("du er ikke checked ind");
 
-            return "redirect:/";
+        return "redirect:/";
         }
     }
-
-    @RequestMapping( value="/", method=POST, params={"checkout"} )
-    public String checkOut(@RequestParam String fName, @RequestParam String lName, @RequestParam String password) { //HttpSession er et springboot objekt
-        System.out.println("hello checkout");
-        if (uc.checkOutConfirm(fName, lName, password)) {
-
-            System.out.println("du er nu checked ud");
-
-
-            return "index";
-        } else {
-
-            System.out.println("Du er ikke checked ud");
-
-            return "redirect:/";
-        }
-    }
-
-
 }

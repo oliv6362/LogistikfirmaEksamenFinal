@@ -14,7 +14,7 @@ public class UseCase {
 
     Registration reg = new Registration();
 
-    public boolean checkInConfirm(String fName, String lName, String password) {
+    public boolean checkInAndOutConfirm(String fName, String lName, String password) {
 
         user = db.getUser(fName, lName, password);
 
@@ -25,19 +25,7 @@ public class UseCase {
 
                 db.registerCheckIn((new Registration(user.getUserID(), getTime())), new User(user.getStatus()));
             }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean checkOutConfirm(String fName, String lName, String password) {
-
-        user = db.getUser(fName, lName, password);
-
-        if (fName.equals(user.getfName()) && lName.equals(user.getlName()) && password.equals(user.getPassword())) {
-
-            if (user.getStatus() == 1) {
+            else if (user.getStatus() == 1) {
                 user.setStatus(0);
 
                 db.registerCheckOut((new Registration(user.getUserID(), getTime())), new User(user.getStatus()));
