@@ -1,6 +1,7 @@
 package Usecase;
 
 import DB.DBController;
+import Entity.Registration;
 import Entity.User;
 
 import java.time.LocalDateTime;
@@ -9,7 +10,6 @@ import java.time.format.DateTimeFormatter;
 public class UseCase {
 
     DBController db = new DBController();
-
     public User user = new User();
 
 
@@ -18,12 +18,16 @@ public class UseCase {
         user = db.getUser(fName, lName, password);
 
             if (fName.equals(user.getfName()) && lName.equals(user.getlName()) && password.equals(user.getPassword())) {
+
                 if (user.isStatus() == false) {
-                db.registerCheckIn(user.getId(), getTime());
+                //db.registerCheckIn(user.getUserID(), getTime());
+
+                   // db.registerCheckIn(reg);
                 user.setStatus(true);
             } else {
-                db.registerCheckOut(user.getId(), getTime());
+                db.registerCheckOut(user.getUserID(), getTime());
                 user.setStatus(false); }
+
             return true;
         } else {
                 return false;

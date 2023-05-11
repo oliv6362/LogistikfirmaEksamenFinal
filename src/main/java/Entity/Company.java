@@ -2,7 +2,7 @@ package Entity;
 
 public class Company {
 
-    int companyId;
+    int companyID;
     String companyName;
 
     public Company(String companyName) {

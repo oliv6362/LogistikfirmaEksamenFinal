@@ -36,10 +36,12 @@ public class UIController {
         System.out.println("hello checkin");
 
         if (!uc.checkInConfirm(fName, lName, password)) {
+            System.out.println("du er ikke logget ind");
             return "index";
         } else {
+            System.out.println("du er nu logget ind");
 
-            return "redirect:/index";
+            return "redirect:/";
         }
     }
 

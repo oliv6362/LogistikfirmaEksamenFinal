@@ -1,5 +1,6 @@
 package DB;
 
+import Entity.Registration;
 import Entity.User;
 
 import java.sql.*;
@@ -23,28 +24,20 @@ public class DBController {
         }
     }
 
-    public String registerCheckIn(int userID, String checkIn) {
-        String registration = "";
-        try {
+    public void registerCheckIn(Registration reg) {
 
-            String sql = "UPDATE Registration SET checkIn = '" + checkIn + "'" + "WHERE userID = '" + userID + "'";
+        try {
+            String sql = "INSERT INTO Registration (userID, checkIn) VALUES('"
+                    + reg.getUserID() + "','" + reg.getCheckInTime() + "')";
+
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
 
-            sql = "SELECT checkIn FROM Registration WHERE userID = '" + userID + "'";
-            stmt.execute(sql);
-
-            ResultSet rs = stmt.getResultSet();
-
-            if (rs.next()) {
-                registration = rs.getString("checkIn");
-            }
-
+            System.out.println("Connection to SQLite has been established. \n");
             stmt.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return registration;
     }
 
     public String registerCheckOut(int userID, String checkOut) {
@@ -76,14 +69,14 @@ public class DBController {
         try {
             User user = new User();
 
-            String sql = "SELECT * FROM User WHERE fName = " + fName + " AND lName = " + lName + " AND password = " + password + ";";
+            String sql = "SELECT * FROM User WHERE fName = '" + fName + "' AND lName = '" + lName + "' AND password = '" + password + "'";
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
 
             ResultSet rs = stmt.getResultSet();
 
             while (rs.next()) {
-                user.setId(rs.getInt("userID"));
+                user.setUserID(rs.getInt("userID"));
                 user.setfName(rs.getString("fName"));
                 user.setlName(rs.getString("lName"));
                 user.setCompany(rs.getInt("company"));

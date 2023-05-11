@@ -2,34 +2,35 @@ package Entity;
 
 public class Registration {
 
-    private int regId;
-    private int userId;
+    private int regID;
+    private int userID;
     private String checkInTime;
     private String checkOutTime;
 
     public Registration() {
     }
-    public Registration(int userId, String checkInTime, String checkOutTime) {
-        this.userId = userId;
+
+    public Registration(int regID, int userID, String checkInTime, String checkOutTime) {
+        this.regID = regID;
+        this.userID = userID;
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
-
     }
 
-    public int getRegId() {
-        return regId;
+    public int getRegID() {
+        return regID;
     }
 
-    public void setRegId(int regId) {
-        this.regId = regId;
+    public void setRegID(int regID) {
+        this.regID = regID;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUserID() {
+        return userID;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getCheckInTime() {

@@ -2,7 +2,7 @@ package Entity;
 
 public class User {
 
-    private int id;
+    private int userID;
     private String fName;
     private String lName;
     private String password;
@@ -14,20 +14,23 @@ public class User {
     public User() {
     }
 
-    public User(String fName, String lName, String password, int company) {
+
+    public User(int userID, String fName, String lName, String password, int company, boolean status, int location) {
+        this.userID = userID;
         this.fName = fName;
         this.lName = lName;
         this.password = password;
         this.company = company;
+        this.status = status;
+        this.location = location;
     }
 
-
-    public int getId() {
-        return id;
+    public int getUserID() {
+        return userID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getfName() {
