@@ -40,7 +40,7 @@ public class UseCase {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return now.format(formatter);
-    }
+    } // TODO: fix registerCheckIn/Out
 
 
 }

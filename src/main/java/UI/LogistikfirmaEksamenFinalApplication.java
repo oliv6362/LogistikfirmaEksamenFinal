@@ -9,5 +9,5 @@ public class LogistikfirmaEksamenFinalApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LogistikfirmaEksamenFinalApplication.class, args);
 	}
-	//oliver was here2
+	//!oliver was here2
 }

@@ -60,7 +60,7 @@ public class DBController {
         }
     }
 
-    public User getUser(String fName, String lName, String password) {
+    public User     getUser(String fName, String lName, String password) {
         try {
             User user = new User();
 
