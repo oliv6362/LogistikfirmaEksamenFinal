@@ -40,4 +40,17 @@ public class UIController {
         return "redirect:/";
         }
     }
+
+    @GetMapping("/signUp")
+    public String showSignupForm() {
+        return "signUp";
+    }
+
+    @PostMapping("/signUp")
+    public String signUp(@RequestParam String fName, @RequestParam String lName, @RequestParam String email, @RequestParam String psw, @RequestParam int phoneNumber) {
+        // handle signup request
+        //uc.buildUser(fName, lName, email, psw, phoneNumber);
+        return "redirect:/frontPage";
+    }
+
 }
