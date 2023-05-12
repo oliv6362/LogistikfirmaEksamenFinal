@@ -34,12 +34,9 @@ public class UIController {
 
         System.out.println("du er nu checked ind/ud");
 
-
         return "index";
         } else {
-
         System.out.println("du er ikke checked ind");
-
         return "redirect:/";
         }
     }

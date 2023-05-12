@@ -13,17 +13,12 @@
     display: grid;
     grid-template-areas:
                 'header header header header header header'
-                'navbar navbar navbar navbar navbar navbar'
                 'middle middle middle middle middle middle'
                 'footer footer footer footer footer footer';
 }
 
 .header {
     grid-area: header;
-}
-
-.navbar {
-    grid-area: navbar;
 }
 
 .middle {
@@ -39,7 +34,6 @@
     .grid-container  {
         grid-template-areas:
                 'header header header header header header'
-                'navbar navbar navbar navbar navbar navbar'
                 'middle middle middle middle middle middle'
                 'footer footer footer footer footer footer';
     }
@@ -48,24 +42,25 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
+
+    background-color: #0ba8cb;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 /* header definitioner */
 header {
-    background-color: #fddbcc;
     text-align: center;
 }
 
 header h1{
     font-size: 75px;
-
-    color: orange;
-
+    color: #ffffff;
     font-family: "Times New Roman", Times, serif;
     font-weight: bold;
     text-transform: uppercase;
     text-shadow: 2px 2px 2px #000000;
-
     padding-top: 10px;
 
 }
@@ -75,27 +70,45 @@ header h1 img {
     height: 75px;
 }
 
-
 /* main definitioner */
-
 main{
-    background-color: #fddbcc;
     padding: 20px;
-
-    border: 1px solid #000000;
-
     font-size: 20px;
-    font-family: "Times New Roman", Times, serif;
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
-
-
-
-
 }
 
 
+form {border: 3px solid #ffffff;}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4cea56;
+    color: #000000;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.container {
+    padding: 16px;
+    text-align: left;
+}
 
 /* footer definitioner */
 footer {
@@ -103,7 +116,7 @@ footer {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #fddbcc;
+    background-color: #0ba8cb;
     color: black;
     text-align: center;
 }
