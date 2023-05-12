@@ -87,7 +87,7 @@ public class DBController {
 
     public void addUser(User u) {
         try {
-            String sql = "INSERT INTO user (fName,lName,company,password,location,status) VALUES('" //ret til database table name
+            String sql = "INSERT INTO user (fName,lName,company,password,location,status) VALUES('"
                     + String.valueOf(u.getfName()) + "','" + u.getlName() + "','" + u.getCompany() + "','" + u.getPassword()  + "','" + u.getLocation()  + "','" + u.getStatus();
             sql = sql + u.getfName() + "','" + u.getlName() + "','" + u.getPassword() + "')";
 

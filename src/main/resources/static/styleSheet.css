@@ -8,6 +8,7 @@
 
 }
 
+
 /* The grid container */
 .grid-container {
     display: grid;
@@ -119,4 +120,23 @@ footer {
     background-color: #0ba8cb;
     color: black;
     text-align: center;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+    float: left;
+    width: 50%;
+}
+
+/* Clear floats */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
 }
