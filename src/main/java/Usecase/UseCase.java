@@ -36,6 +36,10 @@ public class UseCase {
         }
     }
 
+    public void buildUser(String fName, String lName, String password, int company, int location){
+        db.addUser(new User(fName, lName, password, company, location, 0));
+    }
+
     public String getTime(){
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

@@ -60,7 +60,7 @@ public class DBController {
         }
     }
 
-    public User     getUser(String fName, String lName, String password) {
+    public User getUser(String fName, String lName, String password) {
         try {
             User user = new User();
 
@@ -82,6 +82,22 @@ public class DBController {
             return user;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void addUser(User u) {
+        try {
+            String sql = "INSERT INTO user (fName,lName,company,password,location,status) VALUES('" //ret til database table name
+                    + String.valueOf(u.getfName()) + "','" + u.getlName() + "','" + u.getCompany() + "','" + u.getPassword()  + "','" + u.getLocation()  + "','" + u.getStatus();
+            sql = sql + u.getfName() + "','" + u.getlName() + "','" + u.getPassword() + "')";
+
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+
+            System.out.println("Connection to MySQL has been established. \n");
+            stmt.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 }

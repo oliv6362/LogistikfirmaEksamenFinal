@@ -47,9 +47,9 @@ public class UIController {
     }
 
     @PostMapping("/signUp")
-    public String signUp(@RequestParam String fName, @RequestParam String lName, @RequestParam String email, @RequestParam String psw, @RequestParam int phoneNumber) {
+    public String signUp(@RequestParam String fName, @RequestParam String lName, @RequestParam String password, @RequestParam int company, @RequestParam int location) {
         // handle signup request
-        //uc.buildUser(fName, lName, email, psw, phoneNumber);
+        uc.buildUser(fName, lName, password, company, location);
         return "redirect:/frontPage";
     }
 

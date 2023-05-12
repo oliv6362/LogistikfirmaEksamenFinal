@@ -21,6 +21,14 @@ public class User {
     }
 
 
+    //til oprettelse af bruger
+    public User(String fName, String lName, String password, int company, int location, int status) {
+        this.fName = fName;
+        this.lName = lName;
+        this.password = password;
+        this.company = company;
+        this.location = location;
+    }
 
     public User(int userID, String fName, String lName, String password, int company, int status, int location) {
         this.userID = userID;
