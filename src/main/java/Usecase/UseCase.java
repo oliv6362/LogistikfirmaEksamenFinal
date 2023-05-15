@@ -3,6 +3,7 @@ package Usecase;
 import DB.DBController;
 import Entity.Registration;
 import Entity.User;
+import Entity.Company;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,9 +11,10 @@ import java.time.format.DateTimeFormatter;
 public class UseCase {
 
     DBController db = new DBController();
-    User user = new User();
 
+    User user = new User();
     Registration reg = new Registration();
+    Company company = new Company();
 
     public boolean checkInAndOutConfirm(String fName, String lName, String password) {
 
@@ -36,11 +38,22 @@ public class UseCase {
         }
     }
 
-    public void buildUser(String fName, String lName, String password, int company, int location){
-        db.addUser(new User(fName, lName, password, company, location, 0));
+    public void getCompany(String companyName){
+        company = db.getCompany(companyName);
+        System.out.println(company.getCompanyID());
     }
 
-            //LAUS RODEKODE -v-
+
+    public void buildUser(String fName, String lName, String companyName, String password, int location){
+        company = db.getCompany(companyName);
+
+        System.out.println(company.getCompanyID());
+
+        db.addUser(new User(fName, lName, company.getCompanyID(), password, location, 0));
+
+    }
+
+    //LAUS RODEKODE -v-
 
     public void buildUser2(String fName, String lName, String companyName, String password, int location){
         company = db.getCompany(companyName);

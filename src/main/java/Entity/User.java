@@ -22,11 +22,11 @@ public class User {
 
 
     //til oprettelse af bruger
-    public User(String fName, String lName, String password, int company, int location, int status) {
+    public User(String fName, String lName, int company, String password, int location, int status) {
         this.fName = fName;
         this.lName = lName;
-        this.password = password;
         this.company = company;
+        this.password = password;
         this.location = location;
     }
 

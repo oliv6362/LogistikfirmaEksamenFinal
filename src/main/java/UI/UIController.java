@@ -32,12 +32,12 @@ public class UIController {
 
         if (uc.checkInAndOutConfirm(fName, lName, password)) {
 
-        System.out.println("du er nu checked ind/ud");
+            System.out.println("du er nu checked ind/ud");
 
-        return "index";
+            return "index";
         } else {
-        System.out.println("du er ikke checked ind");
-        return "redirect:/";
+            System.out.println("du er ikke checked ind");
+            return "redirect:/";
         }
     }
 
@@ -47,10 +47,11 @@ public class UIController {
     }
 
     @PostMapping("/signUp")
-    public String signUp(@RequestParam String fName, @RequestParam String lName, @RequestParam String password, @RequestParam int company, @RequestParam int location) {
+    public String signUp(@RequestParam String fName, @RequestParam String lName,  @RequestParam String company, @RequestParam String password, @RequestParam int location) {
         // handle signup request
-        uc.buildUser(fName, lName, password, company, location);
-        return "redirect:/frontPage";
+        //uc.getCompany(company);
+        uc.buildUser(fName, lName, company, password, location);
+        return "redirect:/signUp";
     }
 
 }
