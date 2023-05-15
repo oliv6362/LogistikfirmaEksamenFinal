@@ -1,5 +1,6 @@
 package DB;
 
+import Entity.Company;
 import Entity.Registration;
 import Entity.User;
 
@@ -88,8 +89,9 @@ public class DBController {
     public void addUser(User u) {
         try {
             String sql = "INSERT INTO user (fName,lName,company,password,location,status) VALUES('"
-                    + String.valueOf(u.getfName()) + "','" + u.getlName() + "','" + u.getCompany() + "','" + u.getPassword()  + "','" + u.getLocation()  + "','" + u.getStatus();
-            sql = sql + u.getfName() + "','" + u.getlName() + "','" + u.getPassword() + "')";
+                    + String.valueOf(u.getfName()) + "','" + u.getlName() + "','" + u.getCompany() + "','";
+            sql = sql + u.getPassword() + "','" + u.getLocation() + "','" + u.getStatus() + "')";
+
 
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
@@ -98,6 +100,26 @@ public class DBController {
             stmt.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }
+    }
+
+    public Company getCompany(String companyName) {
+        try {
+            Company company = new Company();
+
+            String sql = "SELECT * FROM company WHERE companyName = '" + companyName + "'";
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+
+            ResultSet rs = stmt.getResultSet();
+
+            while (rs.next()) {
+                company.setCompanyID(rs.getInt("companyID"));
+                company.setCompanyName(rs.getString("companyName"));
+            }
+            return company;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }
