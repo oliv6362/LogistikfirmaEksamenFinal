@@ -38,14 +38,6 @@ public class Company {
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
-
-    @Override
-    public String toString() {
-        return "Company{" +
-                "companyID=" + companyID +
-                ", companyName='" + companyName + '\'' +
-                '}';
-    }
 }
 
 

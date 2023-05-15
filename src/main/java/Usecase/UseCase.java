@@ -1,9 +1,11 @@
 package Usecase;
 
 import DB.DBController;
+import Entity.Location;
 import Entity.Registration;
 import Entity.User;
 import Entity.Company;
+import Entity.Location;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,6 +17,7 @@ public class UseCase {
     User user = new User();
     Registration reg = new Registration();
     Company company = new Company();
+    Location location = new Location();
 
     public boolean checkInAndOutConfirm(String fName, String lName, String password) {
 
@@ -38,35 +41,18 @@ public class UseCase {
         }
     }
 
-    public void getCompany(String companyName){
+
+
+    public void buildUser(String fName, String lName, String companyName, String password, String locationName){
         company = db.getCompany(companyName);
-        System.out.println(company.getCompanyID());
-    }
+        location = db.getlocation(locationName);
 
+        System.out.println(company.getCompanyID() + location.getLocationID());
 
-    public void buildUser(String fName, String lName, String companyName, String password, int location){
-        company = db.getCompany(companyName);
-
-        System.out.println(company.getCompanyID());
-
-        db.addUser(new User(fName, lName, company.getCompanyID(), password, location, 0));
+        db.addUser(new User(fName, lName, company.getCompanyID(), password, location.getLocationID(), 0));
 
     }
 
-    //LAUS RODEKODE -v-
-
-    public void buildUser2(String fName, String lName, String companyName, String password, int location){
-        company = db.getCompany(companyName);
-
-        System.out.println(company.getCompanyID());
-
-        db.addUser(new User(fName, lName, company.getCompanyID(), password, location, 0));
-
-    }
-
-
-
-    //LAUS RODEKODE -^-
 
 
     public String getTime(){

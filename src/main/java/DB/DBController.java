@@ -3,6 +3,7 @@ package DB;
 import Entity.Company;
 import Entity.Registration;
 import Entity.User;
+import Entity.Location;
 
 import java.sql.*;
 
@@ -118,6 +119,26 @@ public class DBController {
                 company.setCompanyName(rs.getString("companyName"));
             }
             return company;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Location getlocation(String locationName) {
+        try {
+            Location location = new Location();
+
+            String sql = "SELECT * FROM location WHERE locationName = '" + locationName + "'";
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+
+            ResultSet rs = stmt.getResultSet();
+
+            while (rs.next()) {
+                location.setLocationID(rs.getInt("locationID"));
+                location.setLocationName(rs.getString("locationName"));
+            }
+            return location;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

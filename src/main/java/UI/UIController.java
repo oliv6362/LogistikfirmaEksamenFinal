@@ -47,7 +47,7 @@ public class UIController {
     }
 
     @PostMapping("/signUp")
-    public String signUp(@RequestParam String fName, @RequestParam String lName,  @RequestParam String company, @RequestParam String password, @RequestParam int location) {
+    public String signUp(@RequestParam String fName, @RequestParam String lName,  @RequestParam String company, @RequestParam String password, @RequestParam String location) {
         // handle signup request
         //uc.getCompany(company);
         uc.buildUser(fName, lName, company, password, location);
