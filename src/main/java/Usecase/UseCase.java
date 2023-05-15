@@ -40,6 +40,22 @@ public class UseCase {
         db.addUser(new User(fName, lName, password, company, location, 0));
     }
 
+            //LAUS RODEKODE -v-
+
+    public void buildUser2(String fName, String lName, String companyName, String password, int location){
+        company = db.getCompany(companyName);
+
+        System.out.println(company.getCompanyID());
+
+        db.addUser(new User(fName, lName, company.getCompanyID(), password, location, 0));
+
+    }
+
+
+
+    //LAUS RODEKODE -^-
+
+
     public String getTime(){
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
