@@ -16,11 +16,11 @@ public class Registration {
     //checkin
 
 
-    public Registration(int userID, String checkTime, int locationId, int companyId) {
+    public Registration(int userID, int companyId, int locationId, String checkTime) {
         this.userID = userID;
-        this.checkTime = checkTime;
-        this.locationId = locationId;
         this.companyId = companyId;
+        this.locationId = locationId;
+        this.checkTime = checkTime;
     }
 
     public Registration(int regID, int userID, String checkTime, String checkOutTime) {

@@ -5,7 +5,9 @@ public class User {
     private int userID;
     private String fName;
     private String lName;
-    private int licenseNr;
+    private int licenceNr;
+
+
 
     public User() {
     }
@@ -16,7 +18,8 @@ public class User {
     public User(String fName, String lName, int licenseNr) {
         this.fName = fName;
         this.lName = lName;
-        this.licenseNr = licenseNr;
+        this.licenceNr = licenseNr;
+
     }
 
 
@@ -41,12 +44,14 @@ public class User {
         this.lName = lName;
     }
 
-    public int getLicenseNr() {
-        return licenseNr;
+    public int getLicenceNr() {
+        return licenceNr;
     }
 
-    public void setLicenseNr(int licenseNr) {
-        this.licenseNr = licenseNr;
+    public void setLicenceNr(int licenceNr) {
+        this.licenceNr = licenceNr;
     }
+
+
 }
 

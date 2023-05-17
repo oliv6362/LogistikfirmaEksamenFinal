@@ -19,22 +19,15 @@ public class UseCase {
     Company company = new Company();
     Location location = new Location();
 
-    public boolean checkInAndOutConfirm(String fName, String lName, String password) {
+    public boolean checkInConfirm(String fName, String lName, int licenceNr, String companyName) {
+        user = db.getUser(fName, lName, licenceNr);
+        company = db.getCompany(companyName);
 
-        user = db.getUser(fName, lName, password);
 
-        if (fName.equals(user.getfName()) && lName.equals(user.getlName()) && password.equals(user.getPassword())) {
+        if (fName.equals(user.getfName()) && lName.equals(user.getlName()) && licenceNr == user.getLicenceNr()) {
 
-            if (user.getStatus() == 0) {
-                user.setStatus(1);
+            db.registerCheckIn((new Registration(user.getUserID(), company.getCompanyID(), location.getLocationID(), getTime())));
 
-                db.registerCheckIn((new Registration(user.getUserID(), getTime())), new User(user.getStatus()));
-            }
-            else if (user.getStatus() == 1) {
-                user.setStatus(0);
-
-                db.registerCheckOut((new Registration(user.getUserID(), getTime())), new User(user.getStatus()));
-            }
             return true;
         } else {
             return false;
