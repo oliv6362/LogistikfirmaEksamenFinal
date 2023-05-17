@@ -5,13 +5,22 @@ public class Registration {
     private int regID;
     private int userID;
     private String checkTime;
+
+    private int locationId;
+
+    private int companyId;
+
     public Registration() {
     }
 
     //checkin
-    public Registration(int userID, String checkTime) {
+
+
+    public Registration(int userID, String checkTime, int locationId, int companyId) {
         this.userID = userID;
         this.checkTime = checkTime;
+        this.locationId = locationId;
+        this.companyId = companyId;
     }
 
     public Registration(int regID, int userID, String checkTime, String checkOutTime) {
@@ -39,5 +48,21 @@ public class Registration {
     }
     public void setCheckTime(String checkTime) {
         this.checkTime = checkTime;
+    }
+
+    public int getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
+    }
+
+    public int getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
     }
 }

@@ -5,40 +5,20 @@ public class User {
     private int userID;
     private String fName;
     private String lName;
-    private String password;
-    private int company;
-    private int status;
-
-    private int location;
+    private int licenseNr;
 
     public User() {
     }
 
 
-    //til at ændre status bool TEEST
-    public User(int status) {
-        this.status = status;
-    }
-
 
     //til oprettelse af bruger
-    public User(String fName, String lName, int company, String password, int location, int status) {
+    public User(String fName, String lName, int licenseNr) {
         this.fName = fName;
         this.lName = lName;
-        this.company = company;
-        this.password = password;
-        this.location = location;
+        this.licenseNr = licenseNr;
     }
 
-    public User(int userID, String fName, String lName, String password, int company, int status, int location) {
-        this.userID = userID;
-        this.fName = fName;
-        this.lName = lName;
-        this.password = password;
-        this.company = company;
-        this.status = status;
-        this.location = location;
-    }
 
     public int getUserID() {
         return userID;
@@ -61,33 +41,12 @@ public class User {
         this.lName = lName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
+    public int getLicenseNr() {
+        return licenseNr;
     }
 
-    public int getCompany() {
-        return company;
-    }
-    public void setCompany(int company) {
-        this.company = company;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public int getLocation() {
-        return location;
-    }
-    public void setLocation(int location) {
-        this.location = location;
+    public void setLicenseNr(int licenseNr) {
+        this.licenseNr = licenseNr;
     }
 }
 
