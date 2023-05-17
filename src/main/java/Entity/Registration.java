@@ -4,11 +4,9 @@ public class Registration {
 
     private int regID;
     private int userID;
-    private String checkTime;
-
-    private int locationId;
-
     private int companyId;
+    private int locationId;
+    private String checkTime;
 
     public Registration() {
     }
@@ -20,12 +18,6 @@ public class Registration {
         this.userID = userID;
         this.companyId = companyId;
         this.locationId = locationId;
-        this.checkTime = checkTime;
-    }
-
-    public Registration(int regID, int userID, String checkTime, String checkOutTime) {
-        this.regID = regID;
-        this.userID = userID;
         this.checkTime = checkTime;
     }
 

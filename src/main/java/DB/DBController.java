@@ -24,19 +24,15 @@ public class DBController {
         }
     }
 
-    public void registerCheckIn(Registration reg, User u) {
+    public void registerCheckIn(Registration reg) {
 
         try {
-            String sql = "INSERT INTO Registration (userID, checkIn) VALUES('"
+            String sql = "INSERT INTO Registration (userID, company, location, checkIn) VALUES('"
                     + reg.getUserID() + "','" + reg.getCheckTime() + "')";
 
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
 
-            sql = "UPDATE User SET status = '" + u.getStatus() + "'" + "WHERE userID = '" + reg.getUserID() + "'";
-            stmt.execute(sql);
-
-
             System.out.println("Connection to SQLite has been established. \n");
             stmt.close();
         } catch (SQLException throwables) {
@@ -44,29 +40,11 @@ public class DBController {
         }
     }
 
-    public void registerCheckOut(Registration reg, User u)  {
-        try {
-            String sql = "UPDATE Registration SET checkOut = '" + reg.getCheckTime() + "'" + "WHERE userID = '" + reg.getUserID() + "' AND checkOut IS NULL;";
-
-            Statement stmt = connection.createStatement();
-            stmt.execute(sql);
-
-            sql = "UPDATE User SET status = '" + u.getStatus() + "'" + "WHERE userID = '" + reg.getUserID() + "'";
-            stmt.execute(sql);
-
-
-            System.out.println("Connection to SQLite has been established. \n");
-            stmt.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    public User getUser(String fName, String lName, String password) {
+    public User getUser(String fName, String lName, int licenceNr) {
         try {
             User user = new User();
 
-            String sql = "SELECT * FROM User WHERE fName = '" + fName + "' AND lName = '" + lName + "' AND password = '" + password + "'";
+            String sql = "SELECT * FROM User WHERE fName = '" + fName + "' AND lName = '" + lName + "' AND licenceNr = '" + licenceNr + "'";
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
 
@@ -76,10 +54,7 @@ public class DBController {
                 user.setUserID(rs.getInt("userID"));
                 user.setfName(rs.getString("fName"));
                 user.setlName(rs.getString("lName"));
-                user.setCompany(rs.getInt("company"));
-                user.setPassword(rs.getString("password"));
-                user.setLocation(rs.getInt("location"));
-                user.setStatus(rs.getInt("status"));
+                user.setLicenceNr(rs.getInt("licenceNr"));
             }
             return user;
         } catch (SQLException e) {
@@ -89,10 +64,8 @@ public class DBController {
 
     public void addUser(User u) {
         try {
-            String sql = "INSERT INTO user (fName,lName,company,password,location,status) VALUES('"
-                    + String.valueOf(u.getfName()) + "','" + u.getlName() + "','" + u.getCompany() + "','";
-            sql = sql + u.getPassword() + "','" + u.getLocation() + "','" + u.getStatus() + "')";
-
+            String sql = "INSERT INTO user (fName,lName,licenceNr) VALUES('"
+                    + String.valueOf(u.getfName()) + "','" + u.getlName() + "','" + u.getLicenceNr() + "','";
 
             Statement stmt = connection.createStatement();
             stmt.execute(sql);

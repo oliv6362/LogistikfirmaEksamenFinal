@@ -27,31 +27,25 @@ public class UIController {
     }
 
     @PostMapping("/")
-    public String checkInAndOut(@RequestParam String fName, @RequestParam String lName, @RequestParam String password){
+    public String checkIn(@RequestParam String fName, @RequestParam String lName, @RequestParam int licenceNr, @RequestParam String company){
         System.out.println("hello checkin");
 
-        if (uc.checkInAndOutConfirm(fName, lName, password)) {
+        if (uc.checkInConfirm(fName, lName, licenceNr, company)) {
 
             System.out.println("du er nu checked ind/ud");
 
             return "index";
         } else {
             System.out.println("du er ikke checked ind");
+            //er du ny?? if yes buid user if no try again
+
+            uc.buildUser(fName, lName, licenceNr, company);
+
+
+
+
             return "redirect:/";
         }
-    }
-
-    @GetMapping("/signUp")
-    public String showSignupForm() {
-        return "signUp";
-    }
-
-    @PostMapping("/signUp")
-    public String signUp(@RequestParam String fName, @RequestParam String lName,  @RequestParam String company, @RequestParam String password, @RequestParam String location) {
-        // handle signup request
-        //uc.getCompany(company);
-        uc.buildUser(fName, lName, company, password, location);
-        return "redirect:/signUp";
     }
 
 }

@@ -14,9 +14,13 @@ public class UseCase {
 
     DBController db = new DBController();
 
-    User user = new User();
+
     Registration reg = new Registration();
+
+    User user = new User();
+
     Company company = new Company();
+
     Location location = new Location();
 
     public boolean checkInConfirm(String fName, String lName, int licenceNr, String companyName) {
@@ -30,15 +34,18 @@ public class UseCase {
 
             return true;
         } else {
+
             return false;
         }
+
     }
 
-    public void buildUser(String fName, String lName, String companyName, String password, String locationName){
-        company = db.getCompany(companyName);
-        location = db.getlocation(locationName);
-        db.addUser(new User(fName, lName, company.getCompanyID(), password, location.getLocationID(), 0));
+    public void buildUser(String fName, String lName, int licenceNr, String companyName){
+        db.addUser(new User(fName, lName, licenceNr));
 
+        company = db.getCompany(companyName);
+        user = db.getUser(fName, lName, licenceNr);
+        db.registerCheckIn((new Registration(user.getUserID(), company.getCompanyID(), location.getLocationID(), getTime())));
     }
 
     public String getTime(){

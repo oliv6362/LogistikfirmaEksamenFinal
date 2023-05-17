@@ -16,7 +16,7 @@
     <h1><img class="headerIcon"  src="packageLogo.png">Intec</h1></header>
 
   <main class="middle">
-    <h2>Check in or out below</h2>
+    <h2>Check in below</h2>
 
     <form method="post" action="/">
       <div class="container">
@@ -27,10 +27,20 @@
         <label><b>Last Name</b></label>
         <input type="text" placeholder="Enter last name" name="lName" required>
 
-        <label><b>Password</b></label>
-        <input type="password" placeholder="Enter password" name="password" required>
+        <label><b>Licence Number</b></label>
+        <input type="licenceNr" placeholder="Enter Licence Number" name="licenceNr" required>
 
-        <button type="submit">Check In/Out</button>
+        <label for="company-pick"><b>Firma:</b></label><br>
+        <input list="companies" id="company-pick" name="company-picked" style="height: 40px; width: 100%;">
+
+        <datalist id="companies">
+          <option value="GLS">
+          <option value="DHL">
+          <option value="DSV">
+        </datalist>
+        <br><br>
+
+        <button type="submit">Check In</button>
       </div>
     </form>
   </main>
