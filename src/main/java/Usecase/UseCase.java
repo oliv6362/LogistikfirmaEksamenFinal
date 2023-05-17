@@ -41,26 +41,17 @@ public class UseCase {
         }
     }
 
-
-
     public void buildUser(String fName, String lName, String companyName, String password, String locationName){
         company = db.getCompany(companyName);
         location = db.getlocation(locationName);
-
-        System.out.println(company.getCompanyID() + location.getLocationID());
-
         db.addUser(new User(fName, lName, company.getCompanyID(), password, location.getLocationID(), 0));
 
     }
-
-
 
     public String getTime(){
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return now.format(formatter);
     } // TODO: fix registerCheckIn/Out
-
-
 }
 
