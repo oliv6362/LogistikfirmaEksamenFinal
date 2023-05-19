@@ -21,8 +21,7 @@ public class UIController {
     String companyBuild;
 
     @GetMapping("/") //Forside
-    public String index(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-        model.addAttribute("name", name);
+    public String index() {
         return "index";
     }
 

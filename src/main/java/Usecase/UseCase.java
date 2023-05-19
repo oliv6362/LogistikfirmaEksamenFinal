@@ -30,7 +30,7 @@ public class UseCase {
 
         if (fName.equals(user.getfName()) && lName.equals(user.getlName()) && licenceNr == user.getLicenceNr()) {
 
-            db.registerCheckIn((new Registration(user.getUserID(), company.getCompanyID(), location.getLocationID(), getTime())));
+            db.registerCheckIn((new Registration(user.getUserID(), company.getCompanyID(), 1, getTime())));
 
             return true;
         } else {
@@ -41,11 +41,12 @@ public class UseCase {
     }
 
     public void buildUser(String fName, String lName, int licenceNr, String companyName){
-        db.addUser(new User(fName, lName, licenceNr));
+        System.out.printf("vi er i usecase dbuild user");
+        /*db.addUser(new User(fName, lName, licenceNr));
 
         company = db.getCompany(companyName);
         user = db.getUser(fName, lName, licenceNr);
-        db.registerCheckIn((new Registration(user.getUserID(), company.getCompanyID(), location.getLocationID(), getTime())));
+        db.registerCheckIn((new Registration(user.getUserID(), company.getCompanyID(), location.getLocationID(), getTime())));*/
     }
 
     public String getTime(){

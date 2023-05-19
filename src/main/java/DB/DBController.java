@@ -28,7 +28,7 @@ public class DBController {
 
         try {
             String sql = "INSERT INTO Registration (userID, company, location, checkIn) VALUES('"
-                    + reg.getUserID() + "','" + reg.getCheckTime() + "')";
+                    + reg.getUserID() + "','" + reg.getCompanyId() + "','" + reg.getLocationId() + "','" + reg.getCheckTime() + "')";
 
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
