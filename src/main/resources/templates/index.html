@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
   <meta charset="UTF-8">
@@ -8,6 +8,33 @@
   <title>Intec</title>
 
   <link rel="stylesheet" type="text/css" href="styleSheet.css">
+
+
+
+
+  <script th:inline="javascript">
+    function confirmProceed(isConfirm) {
+      if (isConfirm) {
+        console.log("user confirmed")
+        document.getElementById('checkIn').submit();
+      } else {
+        document.getElementById('errorMessage').textContent = "Name and license do not match";
+        document.getElementById('fName').value = "";
+        document.getElementById('lName').value = "";
+        document.getElementById('licenceNr').value = "";
+        document.getElementById('company').value = "";
+        console.log("User canceled.");
+      }
+    }
+  </script>
+
+  <style>
+    .error-message {
+      color: red;
+    }
+  </style> <!-- skal rykkes i css... -->
+
+
 
 </head>
 <body>
@@ -18,7 +45,7 @@
   <main class="middle">
     <h2>Check in below</h2>
 
-    <form method="post" action="/">
+    <form id="checkIn" method="post" action="/">
       <div class="container">
 
         <label><b>First name</b></label>
@@ -28,19 +55,23 @@
         <input type="text" placeholder="Enter last name" name="lName" required>
 
         <label><b>Licence Number</b></label>
-        <input type="licenceNr" placeholder="Enter Licence Number" name="licenceNr" required>
+        <input type="text" placeholder="Enter Licence Number" name="licenceNr">
 
         <label for="company-pick"><b>Firma:</b></label><br>
-        <input list="companies" id="company-pick" name="company-picked" style="height: 40px; width: 100%;">
+        <input list="companies" id="company-pick" name="company" style="height: 40px; width: 100%;">
 
         <datalist id="companies">
           <option value="GLS">
           <option value="DHL">
           <option value="DSV">
         </datalist>
+
         <br><br>
 
-        <button type="submit">Check In</button>
+        <input type="hidden" th:if="${isConfirm}" name="isConfirm" value="true" />
+        <button th:if="${isConfirm}" onclick="confirmProceed()">Submit</button>
+        <button type="submit" onclick="return confirmProceed([[${isConfirm}]]);">Check in</button>
+        <p id="errorMessage" class="error-message"></p> <!-- snakker med css 'error-message' -->
       </div>
     </form>
   </main>

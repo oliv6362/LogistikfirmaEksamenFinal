@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intec</title>
+
+    <link rel="stylesheet" type="text/css" href="styleSheet.css">
+
+</head>
+<body>
+<div class="grid-container">
+    <header class="header">
+        <h1><img class="headerIcon"  src="packageLogo.png">Intec</h1></header>
+
+    <main class="middle">
+        <h2>You are now checked in</h2>
+        <form id="myForm" method="post" action="/checkInSuccess">
+        </form>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2023 Intec</p>
+    </footer>
+</div>
+
+<script>
+
+        setTimeout(callAfterDelay, 2000);
+
+    function callAfterDelay() {
+
+        // Submit the form
+        document.getElementById('myForm').submit();
+    }
+
+</script>
+
+</body>
+</html>
