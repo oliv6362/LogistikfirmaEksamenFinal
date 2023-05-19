@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 
   <meta charset="UTF-8">
@@ -10,76 +10,248 @@
   <link rel="stylesheet" type="text/css" href="styleSheet.css">
 
 
+    <style>
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
 
+        .dropdown {
 
-  <script th:inline="javascript">
-    function confirmProceed(isConfirm) {
-      if (isConfirm) {
-        console.log("user confirmed")
-        document.getElementById('checkIn').submit();
-      } else {
-        document.getElementById('errorMessage').textContent = "Name and license do not match";
-        document.getElementById('fName').value = "";
-        document.getElementById('lName').value = "";
-        document.getElementById('licenceNr').value = "";
-        document.getElementById('company').value = "";
-        console.log("User canceled.");
-      }
-    }
-  </script>
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
 
-  <style>
-    .error-message {
-      color: red;
-    }
-  </style> <!-- skal rykkes i css... -->
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
 
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
 
+        .dropdown-content a:hover {background-color: #f1f1f1;}
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+    </style>
 
 </head>
 <body>
+
+
+
 <div class="grid-container">
+    <div class="dropdown">
+        <button class="dropbtn">Language</button>
+        <div class="dropdown-content">
+            <button onclick="translateLabelsToDanish()">Danish</button>
+            <button onclick="translateLabelsToEnglish()">English</button>
+        </div>
+    </div>
+
+
   <header class="header">
     <h1><img class="headerIcon"  src="packageLogo.png">Intec</h1></header>
 
+
+
   <main class="middle">
-    <h2>Check in below</h2>
 
-    <form id="checkIn" method="post" action="/">
-      <div class="container">
+      <h2>Check in below</h2>
+    <form id="myForm" method="post" action="/">
+        <div class="container">
 
-        <label><b>First name</b></label>
-        <input type="text" placeholder="Enter first name" name="fName" required>
+            <label for="fNameField">First Name:</label>
+        <input type="text" placeholder="Enter first name" id="fNameField" name="fName" required>
 
-        <label><b>Last Name</b></label>
-        <input type="text" placeholder="Enter last name" name="lName" required>
+            <label for="lNameField">First Name:</label>
+        <input type="text" placeholder="Enter last name" id="lNameField" name="lName" required>
 
-        <label><b>Licence Number</b></label>
-        <input type="text" placeholder="Enter Licence Number" name="licenceNr">
+            <label for="licenceNumber">Licence Number:</label>
+        <input type="licenceNr" placeholder="Enter Licence Number" id="licenceNumber" name="licenceNr" required>
 
-        <label for="company-pick"><b>Firma:</b></label><br>
-        <input list="companies" id="company-pick" name="company" style="height: 40px; width: 100%;">
+            <label for="companyField">Company:</label>
+        <input list="companies" placeholder="Enter Company Name" id="companyField" name="company" style="height: 40px; width: 100%;">
+
+        <input type="hidden" id="location" name="location" readonly>
 
         <datalist id="companies">
           <option value="GLS">
           <option value="DHL">
           <option value="DSV">
         </datalist>
-
         <br><br>
 
-        <input type="hidden" th:if="${isConfirm}" name="isConfirm" value="true" />
-        <button th:if="${isConfirm}" onclick="confirmProceed()">Submit</button>
-        <button type="submit" onclick="return confirmProceed([[${isConfirm}]]);">Check in</button>
-        <p id="errorMessage" class="error-message"></p> <!-- snakker med css 'error-message' -->
-      </div>
+            <button type="submit" id="submitButton">Check In</button>
+
+    </div>
     </form>
   </main>
+
 
   <footer class="footer">
     <p>&copy; 2023 Intec</p>
   </footer>
 </div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+
+
+    var valueIP;
+    var locationInput = document.getElementById('location');
+    locationInput.value = sessionStorage.getItem('cityLocation');
+
+
+    getPublicIP();
+
+    //Meningen med funktionen er at få den nuvæernde public ip adress fra uicontroller og bruge den her til at finde lokationen i forbindelse med sprog og checkin
+    function getPublicIP() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                valueIP = xhr.responseText;
+
+                executeOnce();
+                changeLanguageFromLokation();
+            }
+        };
+        xhr.open("GET", "/getPublicIP", true);
+        xhr.send();
+    }
+
+    //her er det meningen at vi kun skal finde lokationen en gang så derfor bruger vi en sessionstorage så når vi har fundet lokationen at den ikke prøver at finde den igen hver gang siden refresher
+    function executeOnce() {
+        // Check if the function has already been executed
+        if (!sessionStorage.getItem('functionExecuted')) {
+            // Execute the code you want to run once
+            getCurrentLocation();
+
+            // Set a flag in sessionStorage to indicate that the function has been executed
+            sessionStorage.setItem('functionExecuted', 'true');
+        }
+    }
+
+    //Her er det meningen at vi skal bruge ipen vi fik før til at finde lokationen og det gør vi ved brug af geoIP
+    function getCurrentLocation() {
+        var ip = valueIP;
+        var access_key = 'c975032d08c59b9abaf57d89519e9b66';
+
+        // Make the API request via jQuery.ajax
+        $.ajax({
+            url: 'http://api.ipstack.com/' + ip,
+            data: {
+                access_key: access_key
+            },
+            dataType: 'json',
+            success: function (response) {
+
+                //Her er det meningen at vi finder lokationen og putter valuen ind i locationen i formen så den kan blive sendt ind til databasen i forbindelse med checkin med user
+                // Update the form input field with the location value
+                locationInput.value = response.city;
+                sessionStorage.setItem('cityLocation', locationInput.value);
+                alert("jeg er exucted igen!")
+
+            },
+            error: function (xhr, status, error) {
+                // Handle error response
+                console.error(status, error);
+            }
+        });
+    }
+
+
+    //Her er det meningen at vi skal bruge lokationen til at angive sproget af hjemmesiden
+    function changeLanguageFromLokation() {
+        // Translate form labels based on the detected language
+        if (locationInput.value === 'Boston') {
+            translateLabelsToEnglish();
+        } else if (locationInput.value === 'Næstved') {
+            translateLabelsToDanish();
+        } else {
+            // Default translation for other languages
+            translateLabelsToDefault();
+        }
+    }
+
+        function translateLabelsToEnglish() {
+            $('h2').text('Check in below');
+            $('#fNameField').prev('label').text('First name:');
+            $('#fNameField').attr('placeholder', 'Enter your first name');
+
+            $('#lNameField').prev('label').text('Last Name:');
+            $('#lNameField').attr('placeholder', 'Enter your last name');
+
+            $('#licenceNumber').prev('label').text('Licence Number:');
+            $('#licenceNumber').attr('placeholder', 'Enter your Licence Number');
+
+            $('#companyField').prev('label').text('Company:');
+            $('#companyField').attr('placeholder', 'Enter company name');
+            $('#submitButton').text('Submit');
+        }
+
+        function translateLabelsToDanish() {
+            $('h2').text('Check ind nedenunder');
+            $('#fNameField').prev('label').text('Fornavn:');
+            $('#fNameField').attr('placeholder', 'Indtast dit fornavn');
+
+            $('#lNameField').prev('label').text('Efternavn:');
+            $('#lNameField').attr('placeholder', 'Indtast dit efternavn');
+
+            $('#licenceNumber').prev('label').text('Licence nummer:');
+            $('#licenceNumber').attr('placeholder', 'Indtast dit licence nummer');
+
+            $('#companyField').prev('label').text('Firma:');
+            $('#companyField').attr('placeholder', 'Indtast firma navn')
+            $('#submitButton').text('Bekræft');
+        }
+
+        function translateLabelsToDefault() {
+            // Default translation for other languages
+            $('h2').text('Check in below');
+            $('#fNameField').prev('label').text('First name:');
+            $('#fNameField').attr('placeholder', 'Enter your first name');
+
+            $('#lNameField').prev('label').text('Last Name:');
+            $('#lNameField').attr('placeholder', 'Enter your last name');
+
+            $('#licenceNumber').prev('label').text('Licence Number:');
+            $('#licenceNumber').attr('placeholder', 'Enter your Licence Number');
+
+            $('#companyField').prev('label').text('Company:');
+            $('#companyField').attr('placeholder', 'Enter company name');
+            $('#submitButton').text('Submit');
+        }
+
+
+
+</script>
+
 
 </body>
 </html>

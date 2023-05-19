@@ -65,7 +65,7 @@ public class DBController {
     public void addUser(User u) {
         try {
             String sql = "INSERT INTO user (fName,lName,licenceNr) VALUES('"
-                    + String.valueOf(u.getfName()) + "','" + u.getlName() + "','" + u.getLicenceNr() + "','";
+                    + u.getfName() + "','" + u.getlName() + "','" + u.getLicenceNr() + "')";
 
             Statement stmt = connection.createStatement();
             stmt.execute(sql);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 
   <meta charset="UTF-8">
@@ -20,19 +20,55 @@
 
     <form method="post" action="/newUserCheck">
       <div class="clearfix">
-        <button type="submit" class="signupbtn" name="newUserCheckSubmit">Yes</button>
-        <button type="submit" class="cancelbtn" name="newUserCheckCancel">No</button>
+        <button type="submit"  id="submitButton" class="signupbtn" name="newUserCheckSubmit">Yes</button>
+        <button type="submit"  id="cancelButton" class="cancelbtn" name="newUserCheckCancel">No</button>
       </div>
     </form>
-
 </main>
-
 
 
 <footer class="footer">
   <p>&copy; 2023 Intec</p>
 </footer>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+  var locationValue = sessionStorage.getItem('cityLocation');
+  changeLanguageFromLokation();
+
+  //Her er det meningen at vi skal bruge lokationen til at angive sproget af hjemmesiden
+  function changeLanguageFromLokation() {
+    // Translate form labels based on the detected language
+    if (locationValue === 'Boston') {
+      translateLabelsToEnglish();
+    } else if (locationValue === 'Næstved') {
+      translateLabelsToDanish();
+    } else {
+      // Default translation for other languages
+      translateLabelsToDefault();
+    }
+  }
+
+  function translateLabelsToEnglish() {
+    $('h2').text('First time?');
+    $('#submitButton').text('Yes');
+    $('#cancelButton').text('No');
+  }
+
+  function translateLabelsToDanish() {
+    $('h2').text('Første gang?');
+    $('#submitButton').text('Ja');
+    $('#cancelButton').text('Nej');
+  }
+
+  function translateLabelsToDefault() {
+    $('h2').text('First time?');
+    $('#submitButton').text('Yes');
+    $('#cancelButton').text('No');
+  }
+</script>
 
 </body>
 </html>

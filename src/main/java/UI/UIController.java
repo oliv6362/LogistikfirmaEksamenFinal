@@ -1,13 +1,25 @@
 package UI;
 
 
+import Entity.User;
 import Usecase.UseCase;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.boot.web.server.Cookie;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+import java.io.*;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Enumeration;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -19,20 +31,43 @@ public class UIController {
     String lNameBuild;
     int licenceNrBuild;
     String companyBuild;
+    String locationBuild;
+
+    boolean ipCheck = false;
+    String ip;
 
     @GetMapping("/") //Forside
     public String index() {
         return "index";
     }
 
+    @RequestMapping(value = "/getPublicIP", method = RequestMethod.GET)
+    @ResponseBody
+    public String getPublicIP() throws IOException {
+
+        if (ipCheck == false) {
+            ipCheck = true;
+
+            URL url = new URL("https://api.ipify.org/");
+            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+            ip = br.readLine();
+            System.out.println(ip);
+            return ip;
+        }
+        else {
+            return ip;
+
+        }
+
+    }
+
     @PostMapping("/")
-    public String checkIn(@RequestParam String fName, @RequestParam String lName, @RequestParam int licenceNr, @RequestParam String company) throws Exception {
+    public String checkIn(@RequestParam String fName, @RequestParam String lName, @RequestParam int licenceNr, @RequestParam String company,  @RequestParam String location) {
         System.out.println("hello checkin");
-       // System.out.println(location);
-        System.out.println(lName);
+        System.out.println(location);
 
 
-        if (uc.checkInConfirm(fName, lName, licenceNr, company)) {
+        if (uc.checkInConfirm(fName, lName, licenceNr, company, location)) {
 
             System.out.println("du er nu checked ind/ud");
 
@@ -44,7 +79,8 @@ public class UIController {
             lNameBuild = lName;
             licenceNrBuild = licenceNr;
             companyBuild = company;
-            return "newUserCheck";
+            locationBuild = location;
+            return "redirect:/newUserCheck";
         }
     }
 
@@ -57,6 +93,7 @@ public class UIController {
     public String checkInFeedback() { //HttpSession er et springboot objekt
         return "redirect:/";
     }
+
 
 
     @GetMapping("/newUserCheck")
@@ -73,8 +110,9 @@ public class UIController {
         System.out.println("efternavn er:" + lNameBuild);
         System.out.println("licenceNr er:" + licenceNrBuild);
         System.out.println("company er:" + companyBuild);
+        System.out.println("location er:" + locationBuild);
 
-        uc.buildUser(fNameBuild, lNameBuild, licenceNrBuild, companyBuild);
+        uc.buildUser(fNameBuild, lNameBuild, licenceNrBuild, companyBuild, locationBuild);
         return "checkInSuccess";
     }
 

@@ -26,6 +26,8 @@
     </footer>
 </div>
 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
         setTimeout(callAfterDelay, 2000);
@@ -34,6 +36,34 @@
 
         // Submit the form
         document.getElementById('myForm').submit();
+    }
+
+    var locationValue = sessionStorage.getItem('cityLocation');
+    changeLanguageFromLokation();
+
+    //Her er det meningen at vi skal bruge lokationen til at angive sproget af hjemmesiden
+    function changeLanguageFromLokation() {
+        // Translate form labels based on the detected language
+        if (locationValue === 'Boston') {
+            translateLabelsToEnglish();
+        } else if (locationValue === 'Næstved') {
+            translateLabelsToDanish();
+        } else {
+            // Default translation for other languages
+            translateLabelsToDefault();
+        }
+    }
+
+    function translateLabelsToEnglish() {
+        $('h2').text('You are now checked in');
+    }
+
+    function translateLabelsToDanish() {
+        $('h2').text('Du er nu tjekket ind');
+    }
+
+    function translateLabelsToDefault() {
+        $('h2').text('You are now checked in');
     }
 
 </script>
