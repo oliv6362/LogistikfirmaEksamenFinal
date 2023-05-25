@@ -9,7 +9,6 @@
 
   <link rel="stylesheet" type="text/css" href="styleSheet.css">
 
-
     <style>
         .dropbtn {
             background-color: #4CAF50;
@@ -77,8 +76,8 @@
 
 
   <main class="middle">
-
       <h2>Check in below</h2>
+
     <form id="myForm" method="post" action="/">
         <div class="container">
 
@@ -102,13 +101,11 @@
           <option value="DSV">
         </datalist>
         <br><br>
-
             <button type="submit" id="submitButton">Check In</button>
-
     </div>
     </form>
-  </main>
 
+  </main>
 
   <footer class="footer">
     <p>&copy; 2023 Intec</p>
@@ -121,45 +118,54 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-
-
-    var valueIP;
     var locationInput = document.getElementById('location');
     locationInput.value = sessionStorage.getItem('cityLocation');
 
 
-    getPublicIP();
+    // Call the function to get the public IP address when the page loads
+    document.addEventListener("DOMContentLoaded", function(event) {
+        executeOnce();
+        changeLanguageFromLokation();
+    });
 
-    //Meningen med funktionen er at få den nuvæernde public ip adress fra uicontroller og bruge den her til at finde lokationen i forbindelse med sprog og checkin
-    function getPublicIP() {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                valueIP = xhr.responseText;
-
-                executeOnce();
-                changeLanguageFromLokation();
-            }
-        };
-        xhr.open("GET", "/getPublicIP", true);
-        xhr.send();
-    }
 
     //her er det meningen at vi kun skal finde lokationen en gang så derfor bruger vi en sessionstorage så når vi har fundet lokationen at den ikke prøver at finde den igen hver gang siden refresher
     function executeOnce() {
         // Check if the function has already been executed
         if (!sessionStorage.getItem('functionExecuted')) {
             // Execute the code you want to run once
-            getCurrentLocation();
+            getPublicIPAddress();
+
 
             // Set a flag in sessionStorage to indicate that the function has been executed
             sessionStorage.setItem('functionExecuted', 'true');
         }
     }
 
+    function getPublicIPAddress() {
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var ipAddress = xhr.responseText;
+                    // Use the obtained public IP address
+
+                    getCurrentLocation(ipAddress);
+
+                } else {
+
+                }
+            }
+        };
+
+        xhr.open('GET', 'https://api.ipify.org');
+        xhr.send();
+    }
+
     //Her er det meningen at vi skal bruge ipen vi fik før til at finde lokationen og det gør vi ved brug af geoIP
-    function getCurrentLocation() {
-        var ip = valueIP;
+    function getCurrentLocation(ipAddress) {
+        var ip = ipAddress;
         var access_key = 'c975032d08c59b9abaf57d89519e9b66';
 
         // Make the API request via jQuery.ajax
@@ -175,7 +181,8 @@
                 // Update the form input field with the location value
                 locationInput.value = response.city;
                 sessionStorage.setItem('cityLocation', locationInput.value);
-                alert("jeg er exucted igen!")
+
+                changeLanguageFromLokation();
 
             },
             error: function (xhr, status, error) {
@@ -247,9 +254,6 @@
             $('#companyField').attr('placeholder', 'Enter company name');
             $('#submitButton').text('Submit');
         }
-
-
-
 </script>
 
 

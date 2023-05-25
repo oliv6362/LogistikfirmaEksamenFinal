@@ -5,23 +5,17 @@ public class User {
     private int userID;
     private String fName;
     private String lName;
-    private int licenceNr;
-
-
+    private String licenceNr;
 
     public User() {
     }
 
-
-
     //til oprettelse af bruger
-    public User(String fName, String lName, int licenseNr) {
+    public User(String fName, String lName, String licenceNr) {
         this.fName = fName;
         this.lName = lName;
-        this.licenceNr = licenseNr;
-
+        this.licenceNr = licenceNr;
     }
-
 
     public int getUserID() {
         return userID;
@@ -44,14 +38,11 @@ public class User {
         this.lName = lName;
     }
 
-    public int getLicenceNr() {
+    public String getLicenceNr() {
         return licenceNr;
     }
-
-    public void setLicenceNr(int licenceNr) {
+    public void setLicenceNr(String licenceNr) {
         this.licenceNr = licenceNr;
     }
-
-
 }
 

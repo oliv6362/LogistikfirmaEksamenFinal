@@ -8,7 +8,6 @@ import Entity.Location;
 import java.sql.*;
 
 public class DBController {
-
     public Connection connection;
 
     private Statement stmt;
@@ -28,7 +27,7 @@ public class DBController {
 
         try {
             String sql = "INSERT INTO Registration (userID, company, location, checkIn) VALUES('"
-                    + reg.getUserID() + "','" + reg.getCompanyId() + "','" + reg.getLocationId() + "','" + reg.getCheckTime() + "')";
+                    + reg.getUserID() + "','" + reg.getCompanyId() + "','" + reg.getLocationID() + "','" + reg.getCheckTime() + "')";
 
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
@@ -40,7 +39,7 @@ public class DBController {
         }
     }
 
-    public User getUser(String fName, String lName, int licenceNr) {
+    public User getUser(String fName, String lName, String licenceNr) {
         try {
             User user = new User();
 
@@ -54,7 +53,7 @@ public class DBController {
                 user.setUserID(rs.getInt("userID"));
                 user.setfName(rs.getString("fName"));
                 user.setlName(rs.getString("lName"));
-                user.setLicenceNr(rs.getInt("licenceNr"));
+                user.setLicenceNr(rs.getString("licenceNr"));
             }
             return user;
         } catch (SQLException e) {
@@ -97,7 +96,7 @@ public class DBController {
         }
     }
 
-    public Location getlocation(String locationName) {
+    public Location getLocation(String locationName) {
         try {
             Location location = new Location();
 

@@ -8,7 +8,6 @@ public class Company {
     public Company() {
     }
 
-
     public Company(int companyID) {
         this.companyID = companyID;
 
@@ -39,6 +38,3 @@ public class Company {
         this.companyName = companyName;
     }
 }
-
-
-// Evt. User

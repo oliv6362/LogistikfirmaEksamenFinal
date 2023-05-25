@@ -4,20 +4,17 @@ public class Registration {
 
     private int regID;
     private int userID;
-    private int companyId;
-    private int locationId;
+    private int companyID;
+    private int locationID;
     private String checkTime;
 
     public Registration() {
     }
 
-    //checkin
-
-
-    public Registration(int userID, int companyId, int locationId, String checkTime) {
+    public Registration(int userID, int companyId, int locationID, String checkTime) {
         this.userID = userID;
-        this.companyId = companyId;
-        this.locationId = locationId;
+        this.companyID = companyId;
+        this.locationID = locationID;
         this.checkTime = checkTime;
     }
 
@@ -42,19 +39,19 @@ public class Registration {
         this.checkTime = checkTime;
     }
 
-    public int getLocationId() {
-        return locationId;
+    public int getLocationID() {
+        return locationID;
     }
 
-    public void setLocationId(int locationId) {
-        this.locationId = locationId;
+    public void setLocationID(int locationID) {
+        this.locationID = locationID;
     }
 
     public int getCompanyId() {
-        return companyId;
+        return companyID;
     }
 
     public void setCompanyId(int companyId) {
-        this.companyId = companyId;
+        this.companyID = companyId;
     }
 }
