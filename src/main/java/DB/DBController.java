@@ -32,7 +32,7 @@ public class DBController {
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
 
-            System.out.println("Connection to SQLite has been established. \n");
+            System.out.println("Connection to mysql has been established. \n");
             stmt.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

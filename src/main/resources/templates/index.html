@@ -82,18 +82,22 @@
         <div class="container">
 
             <label for="fNameField">First Name:</label>
-        <input type="text" placeholder="Enter first name" id="fNameField" name="fName" required>
+            <input type="text" placeholder="Enter first name" id="fNameField" name="fName" required>
 
             <label for="lNameField">First Name:</label>
-        <input type="text" placeholder="Enter last name" id="lNameField" name="lName" required>
+            <input type="text" placeholder="Enter last name" id="lNameField" name="lName" required>
 
             <label for="licenceNumber">Licence Number:</label>
-        <input type="licenceNr" placeholder="Enter Licence Number" id="licenceNumber" name="licenceNr" required>
+            <input type="licenceNr" placeholder="Enter Licence Number" id="licenceNumber" name="licenceNr" required>
 
             <label for="companyField">Company:</label>
-        <input list="companies" placeholder="Enter Company Name" id="companyField" name="company" style="height: 40px; width: 100%;">
+            <input list="companies" placeholder="Enter Company Name" id="companyField" name="company" style="height: 40px; width: 100%;">
+
+            <input type="checkbox" id="consent" name="consent" value="Consent" required>
+            <label for="consent"> I have read and agree to the <a href="https://www.datatilsynet.dk/hvad-siger-reglerne/grundlaeggende-begreber/hvad-er-dine-forpligtelser/de-grundlaeggende-principper-">Datatilsynet.dk</a></label><br>
 
         <input type="hidden" id="location" name="location" readonly>
+
 
         <datalist id="companies">
           <option value="GLS">
