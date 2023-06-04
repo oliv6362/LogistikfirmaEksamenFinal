@@ -1,6 +1,6 @@
 package Usecase;
 
-import DB.DBController;
+import db.DBController;
 import Entity.Location;
 import Entity.Registration;
 import Entity.User;
@@ -42,6 +42,7 @@ public class UseCase {
     public String getTime(){
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        System.out.println(formatter.getDecimalStyle());
         return now.format(formatter);
     }
 }
