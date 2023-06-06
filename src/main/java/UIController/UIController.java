@@ -1,4 +1,4 @@
-package UI;
+package UIController;
 
 import Usecase.UseCase;
 import org.springframework.stereotype.Controller;
@@ -8,11 +8,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Controller
 public class UIController {
     UseCase uc = new UseCase();
-    String fNameBuild;
-    String lNameBuild;
-    String licenceNrBuild;
-    String companyBuild;
-    String locationBuild;
+    private String fNameBuild;
+    private String lNameBuild;
+    private String licenceNrBuild;
+    private String companyBuild;
+    private String locationBuild;
 
     @GetMapping("/") //Forside
     public String index() {

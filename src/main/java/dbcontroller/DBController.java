@@ -1,4 +1,4 @@
-package DB;
+package dbcontroller;
 
 import Entity.Company;
 import Entity.Registration;

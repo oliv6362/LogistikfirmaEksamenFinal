@@ -42,7 +42,6 @@ public class Registration {
     public int getLocationID() {
         return locationID;
     }
-
     public void setLocationID(int locationID) {
         this.locationID = locationID;
     }
@@ -50,7 +49,6 @@ public class Registration {
     public int getCompanyId() {
         return companyID;
     }
-
     public void setCompanyId(int companyId) {
         this.companyID = companyId;
     }

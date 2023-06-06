@@ -1,6 +1,6 @@
 package Usecase;
 
-import db.DBController;
+import dbcontroller.DBController;
 import Entity.Location;
 import Entity.Registration;
 import Entity.User;
