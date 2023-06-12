@@ -1,13 +1,16 @@
 package UI;
 
 import Usecase.UseCase;
+import Usecase.DBservice;
+import dbcontroller.DBController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 public class UIController {
-    UseCase uc = new UseCase();
+    private DBservice dbService = new DBController();
+    private UseCase uc = new UseCase(dbService);
     String fNameBuild;
     String lNameBuild;
     String licenceNrBuild;

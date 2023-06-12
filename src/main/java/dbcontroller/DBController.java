@@ -1,13 +1,14 @@
-package DB;
+package dbcontroller;
 
 import Entity.Company;
 import Entity.Registration;
 import Entity.User;
 import Entity.Location;
+import Usecase.DBservice;
 
 import java.sql.*;
 
-public class DBController {
+public class DBController implements DBservice {
     public Connection connection;
 
     private Statement stmt;

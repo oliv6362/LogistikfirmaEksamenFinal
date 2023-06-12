@@ -1,6 +1,5 @@
 package Usecase;
 
-import db.DBController;
 import Entity.Location;
 import Entity.Registration;
 import Entity.User;
@@ -9,19 +8,28 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class UseCase {
-    DBController db = new DBController();
+    //DBController db = new DBController();
+    // I stedet for at benytte DBController så laver vi en instans af vores interface og kalder den
+
+    private DBservice dbService;
     User user = new User();
     Company company = new Company();
     Location location = new Location();
 
+
+
+    public UseCase(DBservice dbService) { //denne constructor sørger for "dependency injection" som bestemmer hvilken interface bruger
+        this.dbService = dbService;
+    }
+
     public boolean checkInConfirm(String fName, String lName, String licenceNr, String companyName, String locationName) {
-        user = db.getUser(fName, lName, licenceNr);
+        user = dbService.getUser(fName, lName, licenceNr);
         
         if (fName.equals(user.getfName()) && lName.equals(user.getlName()) && licenceNr.equals(user.getLicenceNr())){
-            company = db.getCompany(companyName);
-            location = db.getLocation(locationName);
+            company = dbService.getCompany(companyName);
+            location = dbService.getLocation(locationName);
 
-            db.registerCheckIn((new Registration(user.getUserID(), company.getCompanyID(), location.getLocationID(), getTime())));
+            dbService.registerCheckIn((new Registration(user.getUserID(), company.getCompanyID(), location.getLocationID(), getTime())));
 
             return true;
         } else {
@@ -30,19 +38,18 @@ public class UseCase {
     }
 
     public void buildUser(String fName, String lName, String licenceNr, String companyName, String locationName){
-        db.addUser(new User(fName, lName, licenceNr));
+        dbService.addUser(new User(fName, lName, licenceNr));
 
-        company = db.getCompany(companyName);
-        user = db.getUser(fName, lName, licenceNr);
-        location = db.getLocation(locationName);
+        company = dbService.getCompany(companyName);
+        user = dbService.getUser(fName, lName, licenceNr);
+        location = dbService.getLocation(locationName);
 
-        db.registerCheckIn((new Registration(user.getUserID(), company.getCompanyID(), location.getLocationID(), getTime())));
+        dbService.registerCheckIn((new Registration(user.getUserID(), company.getCompanyID(), location.getLocationID(), getTime())));
     }
 
     public String getTime(){
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        System.out.println(formatter.getDecimalStyle());
         return now.format(formatter);
     }
 }
