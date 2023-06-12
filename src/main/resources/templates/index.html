@@ -84,7 +84,7 @@
             <label for="fNameField">First Name:</label>
             <input type="text" placeholder="Enter first name" id="fNameField" name="fName" required>
 
-            <label for="lNameField">First Name:</label>
+            <label for="lNameField">Last Name:</label>
             <input type="text" placeholder="Enter last name" id="lNameField" name="lName" required>
 
             <label for="licenceNumber">Licence Number:</label>
@@ -96,8 +96,7 @@
             <input type="checkbox" id="consent" name="consent" value="Consent" required>
             <label for="consent"> I have read and agree to the <a href="https://www.datatilsynet.dk/hvad-siger-reglerne/grundlaeggende-begreber/hvad-er-dine-forpligtelser/de-grundlaeggende-principper-">Datatilsynet.dk</a></label><br>
 
-        <input type="hidden" id="location" name="location" readonly>
-
+            <input type="hidden" id="location" name="location" readonly>
 
         <datalist id="companies">
           <option value="GLS">
@@ -121,10 +120,8 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
-    var locationInput = document.getElementById('location');
-    locationInput.value = sessionStorage.getItem('cityLocation');
-
+   var locationInput = document.getElementById('location');
+   locationInput.value = sessionStorage.getItem('cityLocation');
 
     // Call the function to get the public IP address when the page loads
     document.addEventListener("DOMContentLoaded", function(event) {
@@ -132,14 +129,12 @@
         changeLanguageFromLokation();
     });
 
-
     //her er det meningen at vi kun skal finde lokationen en gang så derfor bruger vi en sessionstorage så når vi har fundet lokationen at den ikke prøver at finde den igen hver gang siden refresher
     function executeOnce() {
         // Check if the function has already been executed
         if (!sessionStorage.getItem('functionExecuted')) {
             // Execute the code you want to run once
             getPublicIPAddress();
-
 
             // Set a flag in sessionStorage to indicate that the function has been executed
             sessionStorage.setItem('functionExecuted', 'true');
@@ -180,14 +175,14 @@
             },
             dataType: 'json',
             success: function (response) {
-
-                //Her er det meningen at vi finder lokationen og putter valuen ind i locationen i formen så den kan blive sendt ind til databasen i forbindelse med checkin med user
-                // Update the form input field with the location value
                 locationInput.value = response.city;
                 sessionStorage.setItem('cityLocation', locationInput.value);
 
-                changeLanguageFromLokation();
+                var countryInput = document.getElementById('country');
+                countryInput.value = response.country_code;
+                sessionStorage.setItem('countryLocation', countryInput.value);
 
+                changeLanguageFromLokation();
             },
             error: function (xhr, status, error) {
                 // Handle error response
@@ -197,12 +192,16 @@
     }
 
 
+
     //Her er det meningen at vi skal bruge lokationen til at angive sproget af hjemmesiden
     function changeLanguageFromLokation() {
+        var countryCode = sessionStorage.getItem('countryLocation');
+
+
         // Translate form labels based on the detected language
-        if (locationInput.value === 'Boston') {
+        if (countryCode === 'US') {
             translateLabelsToEnglish();
-        } else if (locationInput.value === 'Næstved') {
+        } else if (countryCode === 'DK') {
             translateLabelsToDanish();
         } else {
             // Default translation for other languages

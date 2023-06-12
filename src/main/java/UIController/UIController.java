@@ -1,4 +1,4 @@
-package UI;
+package UIController;
 
 import Usecase.UseCase;
 import Usecase.DBservice;
@@ -11,11 +11,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class UIController {
     private DBservice dbService = new DBController();
     private UseCase uc = new UseCase(dbService);
-    String fNameBuild;
-    String lNameBuild;
-    String licenceNrBuild;
-    String companyBuild;
-    String locationBuild;
+    private String fNameBuild;
+    private String lNameBuild;
+    private String licenceNrBuild;
+    private String companyBuild;
+    private String locationBuild;
 
     @GetMapping("/") //Forside
     public String index() {

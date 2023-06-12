@@ -116,4 +116,19 @@ public class DBController implements DBservice {
             throw new RuntimeException(e);
         }
     }
+        public void deleteRegistrationBasedOnAge() {
+            System.out.println("JEG ER STARTETS");
+            try {
+                String sql = "DELETE FROM Registration WHERE checkIn <= NOW() - INTERVAL 4 YEAR";
+
+                Statement stmt = connection.createStatement();
+                stmt.execute(sql);
+
+                System.out.println("Connection to MySQL has been established. \n");
+                System.out.println("bestilling sletted");
+                stmt.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
 }
