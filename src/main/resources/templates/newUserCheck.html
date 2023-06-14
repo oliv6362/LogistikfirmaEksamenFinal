@@ -16,7 +16,7 @@
     <h1><img class="headerIcon"  src="packageLogo.png">Intec</h1></header>
 
   <main class="middle">
-    <h2>First time?</h2>
+    <h2>First time??</h2>
 
     <form method="post" action="/newUserCheck">
       <div class="clearfix">
@@ -35,15 +35,44 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-  var locationValue = sessionStorage.getItem('countryLocation');
-  changeLanguageFromLokation();
+  var storedUSBool = sessionStorage.getItem('saveUSLanguage');
+  if (storedUSBool) {
+    var retrievedUSBool = JSON.parse(storedUSBool);
+
+  }
+
+  var storedDKBool = sessionStorage.getItem('saveDKLanguage');
+  if (storedDKBool) {
+    var retrievedDKBool = JSON.parse(storedDKBool);
+    alert(retrievedDKBool);
+  }
+
+  document.addEventListener("DOMContentLoaded", function(event) {
+    languageSelected();
+  });
+
+  function languageSelected(){
+    alert("languageSelected");
+    if(retrievedDKBool == true){
+      alert("retrievedDKBool");
+      translateLabelsToDanish();
+    } else if(retrievedUSBool == true){
+      alert("retrievedUSBool");
+      translateLabelsToEnglish();
+    } else {
+      alert("countryCode");
+      var countryCode = sessionStorage.getItem('countryLocation');
+      changeLanguageFromLokation(countryCode);
+    }
+  }
 
   //Her er det meningen at vi skal bruge lokationen til at angive sproget af hjemmesiden
-  function changeLanguageFromLokation() {
+  function changeLanguageFromLokation(countryCode) {
+    alert(countryCode);
     // Translate form labels based on the detected language
-    if (locationValue === 'US') {
+    if (countryCode === 'US') {
       translateLabelsToEnglish();
-    } else if (locationValue === 'DK') {
+    } else if (countryCode === 'DK') {
       translateLabelsToDanish();
     } else {
       // Default translation for other languages

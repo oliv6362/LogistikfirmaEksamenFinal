@@ -64,8 +64,8 @@
     <div class="dropdown">
         <button class="dropbtn">Language</button>
         <div class="dropdown-content">
-            <button onclick="translateLabelsToDanish()">Danish</button>
-            <button onclick="translateLabelsToEnglish()">English</button>
+            <button onclick="translateLabelsToDanishSave()">Danish</button>
+            <button onclick="translateLabelsToEnglishSave()">English</button>
         </div>
     </div>
 
@@ -245,6 +245,24 @@
             $('#submitButton').text('Submit');
     }
 
+    sessionStorage.removeItem('saveUSLanguage');
+    sessionStorage.removeItem('saveDKLanguage');
+
+    function translateLabelsToEnglishSave() {
+        let saveUSLanguage = new Boolean(true);
+
+        sessionStorage.setItem('saveUSLanguage', JSON.stringify(saveUSLanguage));
+        sessionStorage.removeItem('saveDKLanguage');
+        translateLabelsToEnglish();
+    }
+
+    function translateLabelsToDanishSave() {
+        let saveDKLanguage = new Boolean(true);
+
+        sessionStorage.setItem('saveDKLanguage', JSON.stringify(saveDKLanguage));
+        sessionStorage.removeItem('saveUSLanguage');
+        translateLabelsToDanish();
+    }
 </script>
 
 

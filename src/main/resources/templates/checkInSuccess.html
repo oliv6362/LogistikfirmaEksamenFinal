@@ -30,7 +30,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-        setTimeout(callAfterDelay, 2000);
+    setTimeout(callAfterDelay, 2000);
 
     function callAfterDelay() {
 
@@ -38,21 +38,43 @@
         document.getElementById('myForm').submit();
     }
 
-    var locationValue = sessionStorage.getItem('countryLocation');
-    changeLanguageFromLokation();
-
-    //Her er det meningen at vi skal bruge lokationen til at angive sproget af hjemmesiden
-    function changeLanguageFromLokation() {
-        // Translate form labels based on the detected language
-        if (locationValue === 'US') {
-            translateLabelsToEnglish();
-        } else if (locationValue === 'DK') {
-            translateLabelsToDanish();
-        } else {
-            // Default translation for other languages
-            translateLabelsToDefault();
+        var storedUSBool = sessionStorage.getItem('saveUSLanguage');
+        if (storedUSBool) {
+            var retrievedUSBool = JSON.parse(storedUSBool);
         }
-    }
+
+        var storedDKBool = sessionStorage.getItem('saveDKLanguage');
+        if (storedDKBool) {
+            var retrievedDKBool = JSON.parse(storedDKBool);
+        }
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            languageSelected();
+        });
+
+        function languageSelected(){
+            if(retrievedDKBool == true){
+                translateLabelsToDanish();
+            } else if(retrievedUSBool == true){
+                translateLabelsToEnglish();
+            } else {
+                var countryCode = sessionStorage.getItem('countryLocation');
+                changeLanguageFromLokation(countryCode);
+            }
+        }
+
+        //Her er det meningen at vi skal bruge lokationen til at angive sproget af hjemmesiden
+        function changeLanguageFromLokation(countryCode) {
+            // Translate form labels based on the detected language
+            if (countryCode === 'US') {
+                translateLabelsToEnglish();
+            } else if (countryCode === 'DK') {
+                translateLabelsToDanish();
+            } else {
+                // Default translation for other languages
+                translateLabelsToDefault();
+            }
+        }
 
     function translateLabelsToEnglish() {
         $('h2').text('You are now checked in');
@@ -65,7 +87,6 @@
     function translateLabelsToDefault() {
         $('h2').text('You are now checked in');
     }
-
 </script>
 
 </body>
