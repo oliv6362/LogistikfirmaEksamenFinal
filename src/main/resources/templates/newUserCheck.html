@@ -44,7 +44,6 @@
   var storedDKBool = sessionStorage.getItem('saveDKLanguage');
   if (storedDKBool) {
     var retrievedDKBool = JSON.parse(storedDKBool);
-    alert(retrievedDKBool);
   }
 
   document.addEventListener("DOMContentLoaded", function(event) {
@@ -52,15 +51,11 @@
   });
 
   function languageSelected(){
-    alert("languageSelected");
     if(retrievedDKBool == true){
-      alert("retrievedDKBool");
       translateLabelsToDanish();
     } else if(retrievedUSBool == true){
-      alert("retrievedUSBool");
       translateLabelsToEnglish();
     } else {
-      alert("countryCode");
       var countryCode = sessionStorage.getItem('countryLocation');
       changeLanguageFromLokation(countryCode);
     }
@@ -68,7 +63,6 @@
 
   //Her er det meningen at vi skal bruge lokationen til at angive sproget af hjemmesiden
   function changeLanguageFromLokation(countryCode) {
-    alert(countryCode);
     // Translate form labels based on the detected language
     if (countryCode === 'US') {
       translateLabelsToEnglish();
