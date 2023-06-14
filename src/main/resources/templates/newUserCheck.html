@@ -35,15 +35,15 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-  var locationValue = sessionStorage.getItem('cityLocation');
+  var locationValue = sessionStorage.getItem('countryLocation');
   changeLanguageFromLokation();
 
   //Her er det meningen at vi skal bruge lokationen til at angive sproget af hjemmesiden
   function changeLanguageFromLokation() {
     // Translate form labels based on the detected language
-    if (locationValue === 'Boston') {
+    if (locationValue === 'US') {
       translateLabelsToEnglish();
-    } else if (locationValue === 'Næstved') {
+    } else if (locationValue === 'DK') {
       translateLabelsToDanish();
     } else {
       // Default translation for other languages

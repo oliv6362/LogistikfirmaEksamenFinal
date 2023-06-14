@@ -97,6 +97,7 @@
             <label for="consent"> I have read and agree to the <a href="https://www.datatilsynet.dk/hvad-siger-reglerne/grundlaeggende-begreber/hvad-er-dine-forpligtelser/de-grundlaeggende-principper-">Datatilsynet.dk</a></label><br>
 
             <input type="hidden" id="location" name="location" readonly>
+            <input type="hidden" id="country" name="country" readonly>
 
         <datalist id="companies">
           <option value="GLS">
@@ -120,40 +121,37 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-   var locationInput = document.getElementById('location');
-   locationInput.value = sessionStorage.getItem('cityLocation');
+    var locationInput = document.getElementById('location');
+    locationInput.value = sessionStorage.getItem('cityLocation');
 
     // Call the function to get the public IP address when the page loads
     document.addEventListener("DOMContentLoaded", function(event) {
         executeOnce();
-        changeLanguageFromLokation();
     });
 
-    //her er det meningen at vi kun skal finde lokationen en gang så derfor bruger vi en sessionstorage så når vi har fundet lokationen at den ikke prøver at finde den igen hver gang siden refresher
     function executeOnce() {
-        // Check if the function has already been executed
         if (!sessionStorage.getItem('functionExecuted')) {
-            // Execute the code you want to run once
-            getPublicIPAddress();
+            getPublicIPAddress(function(ipAddress) {
+                getCurrentLocation(ipAddress);
+            });
 
-            // Set a flag in sessionStorage to indicate that the function has been executed
             sessionStorage.setItem('functionExecuted', 'true');
+        } else {
+            changeLanguageFromLokation();
         }
     }
 
-    function getPublicIPAddress() {
+    function getPublicIPAddress(callback) {
         var xhr = new XMLHttpRequest();
 
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
                     var ipAddress = xhr.responseText;
-                    // Use the obtained public IP address
 
-                    getCurrentLocation(ipAddress);
-
+                    callback(ipAddress);
                 } else {
-
+                    // Handle error...
                 }
             }
         };
@@ -162,41 +160,30 @@
         xhr.send();
     }
 
-    //Her er det meningen at vi skal bruge ipen vi fik før til at finde lokationen og det gør vi ved brug af geoIP
-    function getCurrentLocation(ipAddress) {
+    async function getCurrentLocation(ipAddress) {
         var ip = ipAddress;
         var access_key = 'c975032d08c59b9abaf57d89519e9b66';
 
-        // Make the API request via jQuery.ajax
-        $.ajax({
-            url: 'http://api.ipstack.com/' + ip,
-            data: {
-                access_key: access_key
-            },
-            dataType: 'json',
-            success: function (response) {
-                locationInput.value = response.city;
-                sessionStorage.setItem('cityLocation', locationInput.value);
+        try {
+            const response = await fetch('http://api.ipstack.com/' + ip + '?access_key=' + access_key);
+            const data = await response.json();
 
-                var countryInput = document.getElementById('country');
-                countryInput.value = response.country_code;
-                sessionStorage.setItem('countryLocation', countryInput.value);
+            locationInput.value = data.city;
+            sessionStorage.setItem('cityLocation', locationInput.value);
 
-                changeLanguageFromLokation();
-            },
-            error: function (xhr, status, error) {
-                // Handle error response
-                console.error(status, error);
-            }
-        });
+            var countryInput = document.getElementById('country');
+            countryInput.value = data.country_code;
+            sessionStorage.setItem('countryLocation', countryInput.value);
+
+            changeLanguageFromLokation();
+        } catch (error) {
+            console.error(error);
+        }
     }
-
-
 
     //Her er det meningen at vi skal bruge lokationen til at angive sproget af hjemmesiden
     function changeLanguageFromLokation() {
         var countryCode = sessionStorage.getItem('countryLocation');
-
 
         // Translate form labels based on the detected language
         if (countryCode === 'US') {
@@ -209,7 +196,7 @@
         }
     }
 
-        function translateLabelsToEnglish() {
+    function translateLabelsToEnglish() {
             $('h2').text('Check in below');
             $('#fNameField').prev('label').text('First name:');
             $('#fNameField').attr('placeholder', 'Enter your first name');
@@ -223,9 +210,9 @@
             $('#companyField').prev('label').text('Company:');
             $('#companyField').attr('placeholder', 'Enter company name');
             $('#submitButton').text('Submit');
-        }
+    }
 
-        function translateLabelsToDanish() {
+    function translateLabelsToDanish() {
             $('h2').text('Tjek ind nedenunder');
             $('#fNameField').prev('label').text('Fornavn:');
             $('#fNameField').attr('placeholder', 'Indtast dit fornavn');
@@ -239,9 +226,9 @@
             $('#companyField').prev('label').text('Firma:');
             $('#companyField').attr('placeholder', 'Indtast firma navn')
             $('#submitButton').text('Bekræft');
-        }
+    }
 
-        function translateLabelsToDefault() {
+    function translateLabelsToDefault() {
             // Default translation for other languages
             $('h2').text('Check in below');
             $('#fNameField').prev('label').text('First name:');
@@ -256,7 +243,8 @@
             $('#companyField').prev('label').text('Company:');
             $('#companyField').attr('placeholder', 'Enter company name');
             $('#submitButton').text('Submit');
-        }
+    }
+
 </script>
 
 
