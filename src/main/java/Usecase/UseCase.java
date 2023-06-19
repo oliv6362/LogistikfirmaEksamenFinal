@@ -15,8 +15,7 @@ public class UseCase {
     User user = new User();
     Company company = new Company();
     Location location = new Location();
-
-
+    public boolean tryAgain = false;
 
     public UseCase(DBservice dbService) { //denne constructor sørger for "dependency injection" som bestemmer hvilken interface bruger
         this.dbService = dbService;
@@ -32,6 +31,9 @@ public class UseCase {
             dbService.registerCheckIn((new Registration(user.getUserID(), company.getCompanyID(), location.getLocationID(), getTime())));
 
             return true;
+        } else if (licenceNr.equals(user.getLicenceNr()) && (!fName.equals(user.getfName()) || !lName.equals(user.getlName()))) {
+            tryAgain = true;
+            return false;
         } else {
             return false;
         }

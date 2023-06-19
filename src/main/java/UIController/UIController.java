@@ -29,7 +29,11 @@ public class UIController {
 
             return "checkInSuccess";
         } else {
-
+            if(uc.tryAgain == true){
+                uc.tryAgain = false;
+                return "redirect:/tryAgain";
+            }
+            System.out.println("lets go!");
             fNameBuild = fName;
             lNameBuild = lName;
             licenceNrBuild = licenceNr;
@@ -49,12 +53,16 @@ public class UIController {
         return "redirect:/";
     }
 
-
-
     @GetMapping("/newUserCheck")
     public String newUserCheck(){
         return "newUserCheck";
     }
+
+    @GetMapping("/tryAgain")
+    public String tryAgain(){
+        return "tryAgain";
+    }
+
 
     @RequestMapping( value="/newUserCheck", method=POST, params={"newUserCheckSubmit"} )
     public String newUserCheckSubmit() {

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intec</title>
+
+  <link rel="stylesheet" type="text/css" href="styleSheet.css">
+
+</head>
+<body>
+<div class="grid-container">
+  <header class="header">
+    <h1><img class="headerIcon"  src="packageLogo.png">Intec</h1></header>
+
+  <main class="middle">
+    <h2>Wrong First name or Last name</h2>
+    <form id="myForm" method="post" action="/checkInSuccess">
+    </form>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2023 Intec</p>
+  </footer>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+  setTimeout(callAfterDelay, 3000);
+
+  function callAfterDelay() {
+
+    // Submit the form
+    document.getElementById('myForm').submit();
+  }
+
+  var storedUSBool = sessionStorage.getItem('saveUSLanguage');
+  if (storedUSBool) {
+    var retrievedUSBool = JSON.parse(storedUSBool);
+  }
+
+  var storedDKBool = sessionStorage.getItem('saveDKLanguage');
+  if (storedDKBool) {
+    var retrievedDKBool = JSON.parse(storedDKBool);
+  }
+
+  document.addEventListener("DOMContentLoaded", function(event) {
+    languageSelected();
+  });
+
+  function languageSelected(){
+    if(retrievedDKBool == true){
+      translateLabelsToDanish();
+    } else if(retrievedUSBool == true){
+      translateLabelsToEnglish();
+    } else {
+      var countryCode = sessionStorage.getItem('countryLocation');
+      changeLanguageFromLokation(countryCode);
+    }
+  }
+
+  //Her er det meningen at vi skal bruge lokationen til at angive sproget af hjemmesiden
+  function changeLanguageFromLokation(countryCode) {
+    // Translate form labels based on the detected language
+    if (countryCode === 'US') {
+      translateLabelsToEnglish();
+    } else if (countryCode === 'DK') {
+      translateLabelsToDanish();
+    } else {
+      // Default translation for other languages
+      translateLabelsToDefault();
+    }
+  }
+
+  function translateLabelsToEnglish() {
+    $('h2').text('Wrong first name or last name. Try again');
+  }
+
+  function translateLabelsToDanish() {
+    $('h2').text('Forkert fornavn eller efternavn. Prøv igen');
+  }
+
+  function translateLabelsToDefault() {
+    $('h2').text('Wrong first name or last name. Try again');
+  }
+</script>
+
+</body>
+</html>

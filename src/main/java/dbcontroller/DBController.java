@@ -44,7 +44,7 @@ public class DBController implements DBservice {
         try {
             User user = new User();
 
-            String sql = "SELECT * FROM User WHERE fName = '" + fName + "' AND lName = '" + lName + "' AND licenceNr = '" + licenceNr + "'";
+            String sql = "SELECT * FROM User WHERE licenceNr = '" + licenceNr + "'";
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
 
@@ -117,7 +117,6 @@ public class DBController implements DBservice {
         }
     }
         public void deleteRegistrationBasedOnAge() {
-            System.out.println("JEG ER STARTETS");
             try {
                 String sql = "DELETE FROM Registration WHERE checkIn <= NOW() - INTERVAL 4 YEAR";
 
@@ -125,7 +124,6 @@ public class DBController implements DBservice {
                 stmt.execute(sql);
 
                 System.out.println("Connection to MySQL has been established. \n");
-                System.out.println("bestilling sletted");
                 stmt.close();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
