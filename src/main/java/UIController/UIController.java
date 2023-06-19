@@ -33,7 +33,6 @@ public class UIController {
                 uc.tryAgain = false;
                 return "redirect:/tryAgain";
             }
-            System.out.println("lets go!");
             fNameBuild = fName;
             lNameBuild = lName;
             licenceNrBuild = licenceNr;

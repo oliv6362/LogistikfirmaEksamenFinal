@@ -10,7 +10,6 @@ public class Company {
 
     public Company(int companyID) {
         this.companyID = companyID;
-
     }
 
     public Company(String companyName) {
