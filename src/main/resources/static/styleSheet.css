@@ -80,7 +80,13 @@ main{
 }
 
 
-form {border: 3px solid #ffffff;}
+form {
+    border: 3px solid #ffffff;
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+
+}
 
 input[type=text], input[type=licenceNr] {
     width: 100%;
