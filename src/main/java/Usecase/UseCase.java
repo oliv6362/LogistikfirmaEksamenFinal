@@ -22,7 +22,7 @@ public class UseCase {
     }
 
     public boolean checkInConfirm(String fName, String lName, String licenceNr, String companyName, String locationName) {
-        user = dbService.getUser(fName, lName, licenceNr);
+        user = dbService.getUser(licenceNr);
         
         if (fName.equals(user.getfName()) && lName.equals(user.getlName()) && licenceNr.equals(user.getLicenceNr())){
             company = dbService.getCompany(companyName);
@@ -43,7 +43,7 @@ public class UseCase {
         dbService.addUser(new User(fName, lName, licenceNr));
 
         company = dbService.getCompany(companyName);
-        user = dbService.getUser(fName, lName, licenceNr);
+        user = dbService.getUser(licenceNr);
         location = dbService.getLocation(locationName);
 
         dbService.registerCheckIn((new Registration(user.getUserID(), company.getCompanyID(), location.getLocationID(), getTime())));

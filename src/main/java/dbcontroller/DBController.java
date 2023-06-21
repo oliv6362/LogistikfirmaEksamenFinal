@@ -40,7 +40,7 @@ public class DBController implements DBservice {
         }
     }
 
-    public User getUser(String fName, String lName, String licenceNr) {
+    public User getUser(String licenceNr) {
         try {
             User user = new User();
 
