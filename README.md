@@ -3,13 +3,13 @@ This second-semester exam project focuses on registering packages that arrive fr
 
 
 # What Methods has been used during the development?
-E/R and database diagrams
-Scrum methodology
-Object-Oriented Analysis and Design (OOA/OOD)
-Clean Code architecture design patterns
-Sequence diagrams and use cases
-System Sequence Diagrams (SSD)
-Class and package diagrams
+- E/R and database diagrams
+- Scrum methodology
+- Object-Oriented Analysis and Design (OOA/OOD)
+- Clean Code architecture design patterns
+- Sequence diagrams and use cases
+- System Sequence Diagrams (SSD)
+- Class and package diagrams
 
 
 # What is it made with?
