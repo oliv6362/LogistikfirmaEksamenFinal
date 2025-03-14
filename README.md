@@ -1,5 +1,5 @@
 # What is this project about?
-This second-semester exam project focuses on registering packages that arrive from drivers to storage facilities.
+Project that focuses on registering packages that arrive from drivers to storage facilities.
 
 
 # What Methods has been used during the development?
